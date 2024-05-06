@@ -50,7 +50,6 @@ namespace TraoDoiDo.Views.MuaDo
         }
         private void LoadLsvTrongTabTrangThaiDonHang(string tenLsv, string trangthai)
         {
-            //var dsTrangThaiDon = trangThaiDonHangDao.LoadTrangThaiDonHang(ngMua.Id, trangthai);
             var dsTrangThaiDon = (from ttdh in db.TrangThaiDonHangs
                                   join nd in db.NguoiDungs on ttdh.IdNguoiMua equals nd.IdNguoiDung
                                   join sp in db.SanPhams on ttdh.IdSanPham equals sp.IdSanPham

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -63,12 +64,21 @@ namespace TraoDoiDo.Views.DangDo
 
         private void btnThemSanPhamMoi_Click(object sender, RoutedEventArgs e)
         {
-             
+            DangDo_Dang f = new DangDo_Dang(nguoiDung);
+
+            f.ucThongTin.txtbIdSanPham.Text = (timIdMaxTrongBangSanPham() + 1).ToString();
+
+            // Load lại lsvQuanLySanPham sau khi (thêm sản phẩm và đóng cái DangDo_Dang)
+            f.Closed += (s, ev) =>
+            {
+                HienThi_QuanLySanPham();
+            };
+            f.ShowDialog();
         }
 
         private int timIdMaxTrongBangSanPham()
         { 
-            return -1;
+            return db.SanPhams.Max(sp => sp.IdSanPham);
         }
 
         private void btnSuaDo_Click(object sender, RoutedEventArgs e)
@@ -115,7 +125,37 @@ namespace TraoDoiDo.Views.DangDo
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)
         {
-           
+            Button btn = sender as Button; // Lấy button được click 
+            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn); // Lấy dòng chứa button 
+            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext; // Lấy dữ liệu của dong
+
+            if (duLieuCuaDongChuaButton != null)
+            {
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa mục đã chọn?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        int idSanPhamMuonXoa = Convert.ToInt32(duLieuCuaDongChuaButton.Id);
+
+                        var dsMoTaAnhSanPhamMuonXoa = (from mtasp in db.MoTaAnhSanPhams
+                                                       where mtasp.IdSanPham == idSanPhamMuonXoa
+                                                       select mtasp).ToList();
+                        db.MoTaAnhSanPhams.RemoveRange(dsMoTaAnhSanPhamMuonXoa);
+
+                        var sanPhamMuonXoa = db.SanPhams.Find(idSanPhamMuonXoa);
+                        db.SanPhams.Remove(sanPhamMuonXoa);
+
+                        db.SaveChanges();
+
+                        MessageBox.Show("Xóa thành công");
+                        lsvQuanLySanPham.Items.Remove(duLieuCuaDongChuaButton);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi xảy ra khi xóa sản phẩm: " + ex.Message);
+                    }
+                }
+            }
         }
 
         

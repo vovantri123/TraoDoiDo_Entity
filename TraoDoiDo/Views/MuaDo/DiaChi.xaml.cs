@@ -33,6 +33,13 @@ namespace TraoDoiDo
             InitializeComponent();
         }
 
+        public DiaChi(NguoiDung kh)
+        {
+            InitializeComponent();
+            ngDung = kh;
+            Loaded += FDiaChi_Loaded;
+        }
+
         public DiaChi(NguoiDung kh, List<TrangThaiDonHang> dsSanPhamDeThanhToan)
         {
             InitializeComponent();

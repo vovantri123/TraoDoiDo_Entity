@@ -21,36 +21,133 @@ namespace TraoDoiDo.Views.QuanLy
     /// </summary>
     public partial class TabQuanLyVoucherUC : UserControl
     {
-      
+        NguoiDung nguoiDung;
+
+        TraoDoiDoEntities db = new TraoDoiDoEntities();
+
         public TabQuanLyVoucherUC()
         {
             InitializeComponent();
         }
 
+        public TabQuanLyVoucherUC(NguoiDung nguoiDung)
+        {
+            InitializeComponent();
+            this.nguoiDung = nguoiDung;
+            Loaded += FQuanLyVoucher_Loaded;
+        }
+        private void FQuanLyVoucher_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDanhSachVoucer();
+        }
+
         private void LoadDanhSachVoucer()
         {
-            
+            List<Voucher> dsVoucher = (from vc in db.Vouchers
+                                       select vc).ToList();
+            lsvQLVoucher.ItemsSource = dsVoucher;
         }
         private void lsvQLVoucher_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            // Kiểm tra xem có dòng nào được chọn không
+            if (lsvQLVoucher.SelectedItem != null)
+            {
+                // Lấy dữ liệu của dòng được chọn
+                Voucher dongDuocChon = lsvQLVoucher.SelectedItem as Voucher;
+
+                if (dongDuocChon != null)
+                {
+                    txtbIdVoucher.Text = dongDuocChon.IdVoucher.ToString();
+                    txtbTenVoucher.Text = dongDuocChon.TenVoucher;
+                    txtbGiaTri.Text = dongDuocChon.GiaTri;
+                    dtpNgayBatDau.SelectedDate = DateTime.Parse(dongDuocChon.NgayBatDau);
+                    dtpNgayKetThuc.SelectedDate = DateTime.Parse(dongDuocChon.NgayKetThuc);
+                    ucTangGiamSoLuotSuDungToiDa.txtbSoLuong.Text = dongDuocChon.SoLuotSuDungToiDa;
+                    ucTangGiamSoLuotDaSuDung.txtbSoLuong.Text = dongDuocChon.SoLuotDaSuDung;
+                }
+            }
         }
         private void btnDangVoucher_Click(object sender, RoutedEventArgs e)
         {
-           
+            if (MessageBox.Show("Bạn có chắc chắn muốn đăng ?", "Xác nhận đăng", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Voucher voucher = new Voucher()
+                {
+                    IdVoucher = 1,
+                    TenVoucher = txtbTenVoucher.Text,
+                    GiaTri = txtbGiaTri.Text,
+                    SoLuotSuDungToiDa = ucTangGiamSoLuotSuDungToiDa.txtbSoLuong.Text,
+                    SoLuotDaSuDung = ucTangGiamSoLuotDaSuDung.txtbSoLuong.Text,
+                    NgayBatDau = dtpNgayBatDau.Text,
+                    NgayKetThuc = dtpNgayKetThuc.Text
+                };
+
+                //if (voucher.kiemTraCacTextBox())
+                { 
+                    db.Vouchers.Add(voucher);
+                    db.SaveChanges();
+
+                    FQuanLyVoucher_Loaded(sender, e);
+                }
+
+            }
         }
         private void btnSuaVoucher_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Bạn có chắc chắn muốn sửa mục đã chọn?", "Xác nhận sửa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Voucher voucher = db.Vouchers.Find(Convert.ToInt32(txtbIdVoucher.Text));
+                Voucher voucherMoi = new Voucher()
+                {
+                    TenVoucher = txtbTenVoucher.Text,
+                    GiaTri = txtbGiaTri.Text,
+                    SoLuotSuDungToiDa = ucTangGiamSoLuotSuDungToiDa.txtbSoLuong.Text,
+                    SoLuotDaSuDung = ucTangGiamSoLuotDaSuDung.txtbSoLuong.Text,
+                    NgayBatDau = dtpNgayBatDau.Text,
+                    NgayKetThuc = dtpNgayKetThuc.Text
+                };
+
+                //if (voucherMoi.kiemTraCacTextBox())
+                {
+                    voucher.TenVoucher = voucherMoi.TenVoucher;
+                    voucher.GiaTri = voucherMoi.GiaTri;
+                    voucher.SoLuotSuDungToiDa = voucherMoi.SoLuotSuDungToiDa;
+                    voucher.SoLuotDaSuDung = voucherMoi.SoLuotDaSuDung;
+                    voucher.NgayBatDau = voucherMoi.NgayBatDau;
+                    voucher.NgayKetThuc = voucherMoi.NgayKetThuc;
+                      
+                    db.SaveChanges(); 
+
+                    FQuanLyVoucher_Loaded(sender, e);
+                }
+            }
         }
 
         private void btnXoaVoucher_Click(object sender, RoutedEventArgs e) // truy vấn id trên lsv sẽ hiệu quả hơn thay vì lấy id từ textblock , từ đó ta có thể đặt thuộc tính isReadOnly thành True
         {
-           
-        }
+            Button btn = sender as Button;
+            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn);
+            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext;
 
-        private void FQuanLyVoucher_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadDanhSachVoucer();   
+            if (duLieuCuaDongChuaButton != null)
+            {
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa mục đã chọn?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    int idVoucher = duLieuCuaDongChuaButton.IdVoucher;
+
+                    List<NguoiDungVoucher> NguoiDungVoucherMuonXoa = (from ndvc in db.NguoiDungVouchers
+                                                                      where ndvc.IdVoucher == idVoucher
+                                                                      select ndvc).ToList();
+                    db.NguoiDungVouchers.RemoveRange(NguoiDungVoucherMuonXoa);
+
+                    Voucher voucherMuonXoa = db.Vouchers.Find(idVoucher);
+                    db.Vouchers.Remove(voucherMuonXoa);
+
+                    db.SaveChanges();
+
+                    FQuanLyVoucher_Loaded(sender, e);
+                }
+            }
         }
     }
 }

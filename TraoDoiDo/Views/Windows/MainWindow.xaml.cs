@@ -116,9 +116,9 @@ namespace TraoDoiDo
 
         private void QuanLy_Click(object sender, RoutedEventArgs e)
         {
-            //contentControlHienThi.Content = new QuanLyUC(nguoi);
-            //txtbTenTrang.Text = "Quản lý";
-            //Tg_Btn.IsChecked = false;
+            contentControlHienThi.Content = new QuanLyUC(nguoi);
+            txtbTenTrang.Text = "Quản lý";
+            Tg_Btn.IsChecked = false;
         }
 
         private void Thoat_Click(object sender, RoutedEventArgs e)

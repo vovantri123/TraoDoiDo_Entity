@@ -52,7 +52,6 @@
                             x:Name="txtbIdSanPham"
                             Margin="20,10,20,0"
                             materialDesign:HintAssist.Hint="ID đồ"
-                            IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Auto" />

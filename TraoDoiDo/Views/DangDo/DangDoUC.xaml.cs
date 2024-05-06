@@ -24,8 +24,8 @@ namespace TraoDoiDo
         {
             InitializeComponent();
             ccTabQuanLySanPham.Content = new TabSanPhamDaDangUC(nguoi);
-            //ccTabQuanLyDonHang.Content = new TabQuanLyDonHangUC(nguoi);
-            //ccTabThongKe.Content = new TabThongKeUC(nguoi);
+            ccTabQuanLyDonHang.Content = new TabQuanLyDonHangUC(nguoi);
+            ccTabThongKe.Content = new TabThongKeUC(nguoi);
         }
     }
 }

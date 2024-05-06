@@ -25,11 +25,17 @@ namespace TraoDoiDo
     /// </summary>
     public partial class QuanLyUC : UserControl
     {
-      
         public QuanLyUC()
         {
             InitializeComponent();
-            
+        }
+
+        public QuanLyUC(NguoiDung nguoiDung)
+        {
+            InitializeComponent();
+            //ccTabQuanLySanPham.Content = new TabQuanLySanPhamUC(nguoiDung);
+            //ccTabQuanLyNguoiDung.Content = new TabQuanLyNguoiDungUC(nguoiDung);
+            ccTabQuanLyVoucher.Content = new TabQuanLyVoucherUC(nguoiDung);
         }
        
 
