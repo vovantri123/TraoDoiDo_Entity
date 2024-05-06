@@ -1,0 +1,158 @@
+﻿<UserControl
+    x:Class="TraoDoiDo.VoucherUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="385"
+    Height="160"
+    Margin="5,5,0,0"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Border
+        BorderBrush="White"
+        BorderThickness="5"
+        CornerRadius="15">
+        <materialDesign:Card
+            Background="#F6F6F8"
+            BorderBrush="White"
+            BorderThickness="5"
+            UniformCornerRadius="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Background="#FFF2573E">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <!--  Cái textbloc id ngày chủ yếu để xử lý truy vấn sql chứ k cần show  -->
+                    <TextBlock x:Name="txtbIdVoucher" Visibility="Collapsed" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,10,0,0"
+                        Padding="10,0,10,0"
+                        FontSize="25"
+                        Foreground="White"
+                        Text="Voucher" />
+                    <materialDesign:PackIcon
+                        Grid.Row="1"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        Kind="ShoppingOutline" />
+
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="46" />
+                        <RowDefinition />
+                        <RowDefinition Height="45" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock
+                            x:Name="txtbTenVoucher"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            FontWeight="Medium"
+                            Text="Giảm 20.000 tiền sản phẩm "
+                            TextWrapping="Wrap" />
+                    </Grid>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            x:Name="txtbGiaTri"
+                            FontSize="40"
+                            FontWeight="Medium"
+                            Text="20000" />
+                        <TextBlock
+                            FontSize="40"
+                            FontWeight="Medium"
+                            Text=" đ" />
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="70" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="12"
+                                    Text="Số lượt sử dụng còn lại: "
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="txtbSoLuotSuDungConLai"
+                                    FontSize="12"
+                                    Text="5"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Text=" lượt"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="12"
+                                    Text="Ngày kết thúc: "
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="txtbNGayKetThuc"
+                                    FontSize="12"
+                                    Text="14/12/2024"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid Grid.Column="1">
+                            <Button
+                                x:Name="btnDungVoucher"
+                                Margin="0,0,5,0"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Click="btnDungVoucher_Click"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+
+                                <TextBlock Text="Dùng" />
+                            </Button>
+                            <Button
+                                x:Name="btnNhanVoucher"
+                                Margin="0,0,5,0"
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Click="btnNhanVoucher_Click"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+                                <TextBlock Text="Nhận" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+        </materialDesign:Card>
+    </Border>
+
+
+
+</UserControl>

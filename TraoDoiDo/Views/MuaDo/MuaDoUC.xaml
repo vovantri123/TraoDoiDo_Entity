@@ -1,0 +1,40 @@
+﻿<UserControl
+    x:Class="TraoDoiDo.MuaDoUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    d:DesignHeight="736"
+    d:DesignWidth="1200"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TabControl
+            Width="Auto"
+            materialDesign:ColorZoneAssist.Foreground="DeepSkyBlue"
+            materialDesign:ColorZoneAssist.Mode="Custom">
+            <TabItem Header="Mua sắm">
+                <ContentControl x:Name="ccTabMuaSam" />
+            </TabItem>
+            <TabItem Header="Giỏ hàng">
+                <ContentControl x:Name="ccTabGioHang" />
+            </TabItem>
+            <TabItem Header="Trạng thái đơn hàng">
+                <ContentControl x:Name="ccTabTrangThaiDonHang" />
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>
