@@ -66,7 +66,7 @@ namespace TraoDoiDo
         {
             wpnlDSVoucher.Children.Clear();
 
-            var dsVoucher = (from vc in db.Vouchers select vc).ToList();
+            var dsVoucher = (from vc in db.Voucher select vc).ToList();
 
             foreach (var dong in dsVoucher)
             {
@@ -90,8 +90,8 @@ namespace TraoDoiDo
             int demSoNguoiMuonLoc = 0;
             wpnlDSNguoiHayMua.Children.Clear();
 
-            var dsNguoiHayMua = (from tt in db.TrangThaiDonHangs
-                                 join nd in db.NguoiDungs on tt.IdNguoiMua equals nd.IdNguoiDung
+            var dsNguoiHayMua = (from tt in db.TrangThaiDonHang
+                                 join nd in db.NguoiDung on tt.IdNguoiMua equals nd.IdNguoiDung
                                  where tt.TrangThai == "Đã nhận"
                                  group tt by new { nd.HoTenNguoiDung, nd.DiaChiNguoiDung, nd.AnhNguoiDung } into g
                                  orderby g.Count() descending

@@ -12,14 +12,12 @@ namespace TraoDoiDo
     using System;
     using System.Collections.Generic;
     
-    public partial class DanhGiaNguoiDang
+    public partial class sysdiagrams
     {
-        public int IdNguoiDang { get; set; }
-        public int IdNguoiMua { get; set; }
-        public Nullable<int> SoSao { get; set; }
-        public string NhanXet { get; set; }
-    
-        public virtual NguoiDung NguoiDung { get; set; }
-        public virtual NguoiDung NguoiDung1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

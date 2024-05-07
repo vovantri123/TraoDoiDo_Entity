@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes; 
 using TraoDoiDo.Utilities;
-
+using TraoDoiDo;
 namespace TraoDoiDo
 {
     /// <summary>
@@ -36,10 +36,10 @@ namespace TraoDoiDo
 
         private void btnXacNhanTraHang_Click(object sender, RoutedEventArgs e)
         {
-            var trangThai = db.TrangThaiDonHangs.Find(idNguoiMua, idSP);
+            var trangThai = db.TrangThaiDonHang.Find(idNguoiMua, idSP);
             trangThai.TrangThai = "Đã trả hàng";
 
-            var quanLyDonHang = (from qldh in db.QuanLyDonHangs
+            var quanLyDonHang = (from qldh in db.QuanLyDonHang
                                  where qldh.IdNguoiMua == idNguoiMua && qldh.IdSanPham == idSP
                                  select qldh).FirstOrDefault();
             quanLyDonHang.TrangThai = "Bị hoàn trả";

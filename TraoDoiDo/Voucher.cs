@@ -17,7 +17,7 @@ namespace TraoDoiDo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
-            this.NguoiDungVouchers = new HashSet<NguoiDungVoucher>();
+            this.NguoiDungVoucher = new HashSet<NguoiDungVoucher>();
         }
     
         public int IdVoucher { get; set; }
@@ -29,6 +29,6 @@ namespace TraoDoiDo
         public string NgayKetThuc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDungVoucher> NguoiDungVouchers { get; set; }
+        public virtual ICollection<NguoiDungVoucher> NguoiDungVoucher { get; set; }
     }
 }

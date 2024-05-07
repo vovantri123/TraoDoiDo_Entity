@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes; 
 using TraoDoiDo.ViewModels;
-
+using TraoDoiDo;
 namespace TraoDoiDo
 {
     /// <summary>
@@ -33,13 +33,13 @@ namespace TraoDoiDo
             string matKhau = "";
             //string thongTinTaiKhoan = txtThongTinTaiKhoan.Text;
             if (kiemTra.kiemTraEmail(txtThongTinTaiKhoan.Text)) 
-                matKhau = (from tk in db.TaiKhoans 
-                           join ng in db.NguoiDungs on tk.IdNguoiDung equals ng.IdNguoiDung
+                matKhau = (from tk in db.TaiKhoan 
+                           join ng in db.NguoiDung on tk.IdNguoiDung equals ng.IdNguoiDung
                            where ng.EmailNguoiDung == txtThongTinTaiKhoan.Text
                            select tk.MatKhau).FirstOrDefault();
             if (kiemTra.kiemTraSoDienThoai(txtThongTinTaiKhoan.Text))
-                matKhau = (from tk in db.TaiKhoans
-                           join ng in db.NguoiDungs on tk.IdNguoiDung equals ng.IdNguoiDung
+                matKhau = (from tk in db.TaiKhoan
+                           join ng in db.NguoiDung on tk.IdNguoiDung equals ng.IdNguoiDung
                            where ng.SdtNguoiDung == txtThongTinTaiKhoan.Text
                            select tk.MatKhau).FirstOrDefault();
 

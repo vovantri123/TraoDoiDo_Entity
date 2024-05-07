@@ -58,7 +58,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -113,6 +115,9 @@
     <Compile Include="SanPham.cs">
       <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TaiKhoan.cs">
       <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
     </Compile>
@@ -161,6 +166,9 @@
     </Compile>
     <Compile Include="Views\MuaDo\TabTrangThaiDonHangUC.xaml.cs">
       <DependentUpon>TabTrangThaiDonHangUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuanLy\QuanLyDoanhThuNguoiDung.xaml.cs">
+      <DependentUpon>QuanLyDoanhThuNguoiDung.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuanLy\TabQuanLyNguoiDungUC.xaml.cs">
       <DependentUpon>TabQuanLyNguoiDungUC.xaml</DependentUpon>
@@ -274,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MuaDo\TabTrangThaiDonHangUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuanLy\QuanLyDoanhThuNguoiDung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -41,8 +41,8 @@ namespace TraoDoiDo
 
         private void LoadThongTinNguoiDang(int idNguoiDang)
         { 
-            var nguoiDang = (from dgnd in db.DanhGiaNguoiDangs
-                             join nd in db.NguoiDungs on dgnd.IdNguoiDang equals nd.IdNguoiDung
+            var nguoiDang = (from dgnd in db.DanhGiaNguoiDang
+                             join nd in db.NguoiDung on dgnd.IdNguoiDang equals nd.IdNguoiDung
                              where dgnd.IdNguoiDang == idNguoiDang
                              select nd).FirstOrDefault();   
 
@@ -57,8 +57,8 @@ namespace TraoDoiDo
 
         private void LoadDSDanhGia(int idNguoiDang)
         {
-            var dsDanhGia = (from dgnd in db.DanhGiaNguoiDangs
-                             join nd in db.NguoiDungs on dgnd.IdNguoiMua equals nd.IdNguoiDung
+            var dsDanhGia = (from dgnd in db.DanhGiaNguoiDang
+                             join nd in db.NguoiDung on dgnd.IdNguoiMua equals nd.IdNguoiDung
                              where dgnd.IdNguoiDang == idNguoiDang
                              select new
                              { 

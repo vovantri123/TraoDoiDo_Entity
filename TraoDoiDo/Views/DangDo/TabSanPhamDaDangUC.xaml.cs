@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes; 
 using TraoDoiDo.Utilities;
 using TraoDoiDo.ViewModels;
+using TraoDoiDo;
 
 namespace TraoDoiDo.Views.DangDo
 {
@@ -51,7 +52,7 @@ namespace TraoDoiDo.Views.DangDo
         private void HienThi_QuanLySanPham()
         {
             lsvQuanLySanPham.Items.Clear();
-            dsSanPham = (from sp in db.SanPhams
+            dsSanPham = (from sp in db.SanPham
                          where sp.IdNguoiDang == nguoiDung.IdNguoiDung
                          select sp).ToList();
 
@@ -78,7 +79,7 @@ namespace TraoDoiDo.Views.DangDo
 
         private int timIdMaxTrongBangSanPham()
         { 
-            return db.SanPhams.Max(sp => sp.IdSanPham);
+            return db.SanPham.Max(sp => sp.IdSanPham);
         }
 
         private void btnSuaDo_Click(object sender, RoutedEventArgs e)
@@ -90,11 +91,11 @@ namespace TraoDoiDo.Views.DangDo
             if (duLieuCuaDongChuaButton != null)
             {
                 //Load thông tin sản phẩm lên 
-                SanPham sanPham = db.SanPhams.Find(duLieuCuaDongChuaButton.Id);
+                SanPham sanPham = db.SanPham.Find(duLieuCuaDongChuaButton.Id);
                 DangDo_Sua f = new DangDo_Sua(sanPham);
                 int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.Id);
-                moTaAnhSanPham = (from mtasp in db.MoTaAnhSanPhams
-                                  join sp in db.SanPhams on mtasp.IdSanPham equals sp.IdSanPham
+                moTaAnhSanPham = (from mtasp in db.MoTaAnhSanPham
+                                  join sp in db.SanPham on mtasp.IdSanPham equals sp.IdSanPham
                                   where sp.IdSanPham == idsp
                                   select mtasp).ToList();
 
@@ -137,13 +138,13 @@ namespace TraoDoiDo.Views.DangDo
                     {
                         int idSanPhamMuonXoa = Convert.ToInt32(duLieuCuaDongChuaButton.Id);
 
-                        var dsMoTaAnhSanPhamMuonXoa = (from mtasp in db.MoTaAnhSanPhams
+                        var dsMoTaAnhSanPhamMuonXoa = (from mtasp in db.MoTaAnhSanPham
                                                        where mtasp.IdSanPham == idSanPhamMuonXoa
                                                        select mtasp).ToList();
-                        db.MoTaAnhSanPhams.RemoveRange(dsMoTaAnhSanPhamMuonXoa);
+                        db.MoTaAnhSanPham.RemoveRange(dsMoTaAnhSanPhamMuonXoa);
 
-                        var sanPhamMuonXoa = db.SanPhams.Find(idSanPhamMuonXoa);
-                        db.SanPhams.Remove(sanPhamMuonXoa);
+                        var sanPhamMuonXoa = db.SanPham.Find(idSanPhamMuonXoa);
+                        db.SanPham.Remove(sanPhamMuonXoa);
 
                         db.SaveChanges();
 

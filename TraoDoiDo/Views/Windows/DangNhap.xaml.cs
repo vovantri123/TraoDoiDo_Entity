@@ -32,12 +32,12 @@ namespace TraoDoiDo
         {
             TaiKhoan taiKhoan = new TaiKhoan() {TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password.ToString()}; // Không truyền thì tự hiểu là null ha sao á
 
-            int idNguoiDung = (from nd in db.NguoiDungs
-                               join tk in db.TaiKhoans on nd.IdNguoiDung equals tk.IdNguoiDung
+            int idNguoiDung = (from nd in db.NguoiDung
+                               join tk in db.TaiKhoan on nd.IdNguoiDung equals tk.IdNguoiDung
                                where tk.TenDangNhap == taiKhoan.TenDangNhap && tk.MatKhau == taiKhoan.MatKhau
                                select nd.IdNguoiDung).DefaultIfEmpty(-1).FirstOrDefault();
              
-            nguoi = db.NguoiDungs.Find(idNguoiDung);
+            nguoi = db.NguoiDung.Find(idNguoiDung);
               
             if (nguoi == null)
             {

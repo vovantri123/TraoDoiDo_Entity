@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes; 
 using TraoDoiDo.Utilities;
 using TraoDoiDo.ViewModels;
+using TraoDoiDo;
 
 namespace TraoDoiDo.Views.DangDo
 {
@@ -52,10 +53,10 @@ namespace TraoDoiDo.Views.DangDo
         }
         private void LoadLsvTrongTabQuanLyDonHang(string tenLsv, string trangthai)
         {
-            var dsDonHang = (from qldh in db.QuanLyDonHangs
-                             join nd in db.NguoiDungs on qldh.IdNguoiMua equals nd.IdNguoiDung
-                             join sp in db.SanPhams on qldh.IdSanPham equals sp.IdSanPham
-                             join ttdh in db.TrangThaiDonHangs on new { IdNguoiMua = (int)qldh.IdNguoiMua, IdSanPham = (int)qldh.IdSanPham } equals new { ttdh.IdNguoiMua, ttdh.IdSanPham }
+            var dsDonHang = (from qldh in db.QuanLyDonHang
+                             join nd in db.NguoiDung on qldh.IdNguoiMua equals nd.IdNguoiDung
+                             join sp in db.SanPham on qldh.IdSanPham equals sp.IdSanPham
+                             join ttdh in db.TrangThaiDonHang on new { IdNguoiMua = (int)qldh.IdNguoiMua, IdSanPham = (int)qldh.IdSanPham } equals new { ttdh.IdNguoiMua, ttdh.IdSanPham }
                              where qldh.IdNguoiDang == nguoiDang.IdNguoiDung && qldh.TrangThai == trangthai
                              select new
                              {
@@ -101,8 +102,8 @@ namespace TraoDoiDo.Views.DangDo
             {
                 int idNguoiMua = Convert.ToInt32(duLieuCuaDongChuaButton.IdNguoiMua);
                 int idSP = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
-                NguoiDung nguoi = (from ttdh in db.TrangThaiDonHangs
-                                   join nd in db.NguoiDungs on ttdh.IdNguoiMua equals nd.IdNguoiDung
+                NguoiDung nguoi = (from ttdh in db.TrangThaiDonHang
+                                   join nd in db.NguoiDung on ttdh.IdNguoiMua equals nd.IdNguoiDung
                                    where ttdh.IdNguoiMua == idNguoiMua  && ttdh.IdSanPham == idSP
                                    select nd
                                    ).FirstOrDefault();
@@ -127,12 +128,12 @@ namespace TraoDoiDo.Views.DangDo
                     //quanLyDonHangDao.CapNhat(quanLy);
                     int idNguoiMua = Convert.ToInt32(duLieuCuaDongChuaButton.IdNguoiMua);
                     int idSP = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
-                    QuanLyDonHang quanLy = (from qldh in db.QuanLyDonHangs
+                    QuanLyDonHang quanLy = (from qldh in db.QuanLyDonHang
                                             where qldh.IdNguoiMua == idNguoiMua && qldh.IdSanPham == idSP
                                             select qldh).FirstOrDefault();
                     quanLy.TrangThai = "Đang giao";
 
-                    TrangThaiDonHang trangThaiDon = (from ttdh in db.TrangThaiDonHangs
+                    TrangThaiDonHang trangThaiDon = (from ttdh in db.TrangThaiDonHang
                                                      where ttdh.IdNguoiMua == idNguoiMua && ttdh.IdSanPham == idSP
                                                      select ttdh).FirstOrDefault();
                     trangThaiDon.TrangThai = "Chờ giao hàng"; 

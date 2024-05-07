@@ -33,8 +33,8 @@ namespace TraoDoiDo
         public QuanLyUC(NguoiDung nguoiDung)
         {
             InitializeComponent();
-            //ccTabQuanLySanPham.Content = new TabQuanLySanPhamUC(nguoiDung);
-            //ccTabQuanLyNguoiDung.Content = new TabQuanLyNguoiDungUC(nguoiDung);
+            ccTabQuanLySanPham.Content = new TabQuanLySanPhamUC(nguoiDung);
+            ccTabQuanLyNguoiDung.Content = new TabQuanLyNguoiDungUC(nguoiDung);
             ccTabQuanLyVoucher.Content = new TabQuanLyVoucherUC(nguoiDung);
         }
        

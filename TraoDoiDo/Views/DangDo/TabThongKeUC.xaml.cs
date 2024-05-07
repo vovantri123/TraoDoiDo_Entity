@@ -13,8 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes; 
-
+using System.Windows.Shapes;
+using TraoDoiDo;
 namespace TraoDoiDo.Views.DangDo
 {
     /// <summary>
@@ -63,7 +63,7 @@ namespace TraoDoiDo.Views.DangDo
             int soLuong3Sao = 0;
             int soLuong4Sao = 0;
             int soLuong5Sao = 0;
-            var dsSoLuotDanhGiaTheoTungSoSao = (from dgnd in db.DanhGiaNguoiDangs
+            var dsSoLuotDanhGiaTheoTungSoSao = (from dgnd in db.DanhGiaNguoiDang
                                                 where dgnd.IdNguoiDang == nguoiDang.IdNguoiDung
                                                 group dgnd by dgnd.SoSao into g
                                                 select new
@@ -116,7 +116,7 @@ namespace TraoDoiDo.Views.DangDo
             List<string> dsNhan = new List<string>();
             List<int> dsCotSoLuongDaBan = new List<int>();
             List<int> dsCotSoLuongTong = new List<int>();
-            List<SanPham> dsSLDaBan = (from sp in db.SanPhams
+            List<SanPham> dsSLDaBan = (from sp in db.SanPham
                                        where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                        select sp).ToList();
 
@@ -178,7 +178,7 @@ namespace TraoDoiDo.Views.DangDo
         {
             List<string> dsNhan = new List<string>();
             List<int> dsCotDoanhThu = new List<int>();
-            List<SanPham> dsTiLeDoanhThu = (from sp in db.SanPhams
+            List<SanPham> dsTiLeDoanhThu = (from sp in db.SanPham
                                             where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                             select sp).ToList();
 
@@ -213,7 +213,7 @@ namespace TraoDoiDo.Views.DangDo
         {
             List<string> dsNhan = new List<string>();
             List<int> dsCotDoanhThu = new List<int>();
-            List<SanPham> dsDoanhThuSanPham = (from sp in db.SanPhams
+            List<SanPham> dsDoanhThuSanPham = (from sp in db.SanPham
                                                where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                                select sp).ToList();
 
@@ -259,7 +259,7 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongDoanhThu()
         {
             int tongDoanhThu = 0;
-            List<SanPham> dsTongDoanhThu = (from sp in db.SanPhams
+            List<SanPham> dsTongDoanhThu = (from sp in db.SanPham
                                             where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                             select sp).ToList();
             foreach (var dong in dsTongDoanhThu)
@@ -273,7 +273,7 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongSoLuongSanPhamDaBan()
         {
             int tongSLSanPhamDaBan = 0;
-            List<SanPham> dsTongSLDaBan = (from sp in db.SanPhams
+            List<SanPham> dsTongSLDaBan = (from sp in db.SanPham
                                            where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                            select sp).ToList();
 
@@ -286,8 +286,8 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongKhachHang()
         {
             txtbTongSoLuongKhachHang.Text = "0";
-            var truyVan = (from ttdh in db.TrangThaiDonHangs
-                                      join sp in db.SanPhams on ttdh.IdSanPham equals sp.IdSanPham
+            var truyVan = (from ttdh in db.TrangThaiDonHang
+                                      join sp in db.SanPham on ttdh.IdSanPham equals sp.IdSanPham
                                       group sp by sp.IdNguoiDang into g
                                       where g.Key == nguoiDang.IdNguoiDung
                                       select new

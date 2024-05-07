@@ -58,7 +58,7 @@ namespace TraoDoiDo
         private void UcViDienTU_Loaded(object sender, RoutedEventArgs e)
         {
             HienThi_GiaoDich();
-            string t = (from nd in db.NguoiDungs
+            string t = (from nd in db.NguoiDung
                         where nd.IdNguoiDung == nguoiDung.IdNguoiDung
                         select nd.TienNguoiDung).FirstOrDefault();
             decimal tien = Convert.ToDecimal(t);
@@ -67,7 +67,7 @@ namespace TraoDoiDo
 
         private void HienThi_GiaoDich()
         {
-            var dsGiaoDich = (from gd in db.GiaoDiches
+            var dsGiaoDich = (from gd in db.GiaoDich
                               where gd.IdNguoiDung == nguoiDung.IdNguoiDung
                               select gd).ToList();
             foreach (var dong in dsGiaoDich)

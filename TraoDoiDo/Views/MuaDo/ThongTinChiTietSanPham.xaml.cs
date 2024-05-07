@@ -76,8 +76,8 @@ namespace TraoDoiDo
 
         private void LoadAnhVaMoTa(object sender, RoutedEventArgs e)
         {
-            var dsMoTaAnh = (from spham in db.SanPhams
-                             join mtasp in db.MoTaAnhSanPhams on spham.IdSanPham equals mtasp.IdSanPham
+            var dsMoTaAnh = (from spham in db.SanPham
+                             join mtasp in db.MoTaAnhSanPham on spham.IdSanPham equals mtasp.IdSanPham
                              where spham.IdSanPham == sp.IdSanPham
                              select new
                              {
@@ -100,7 +100,7 @@ namespace TraoDoiDo
 
         private void LoadSanPhamlenWpnlHienThiSPCungLoai(object sender, RoutedEventArgs e)
         { 
-            var dsSanPhamCungLoai = (from spham in db.SanPhams
+            var dsSanPhamCungLoai = (from spham in db.SanPham
                                      where spham.Loai == sp.Loai && spham.IdSanPham != sp.IdSanPham && spham.IdNguoiDang != idNguoiMua
                                      select spham).ToList();
 
@@ -138,14 +138,14 @@ namespace TraoDoiDo
          
         private void LoadThongTinNguoiDang(object sender, RoutedEventArgs e)
         { 
-            var linkAnh = (from nd in db.NguoiDungs
+            var linkAnh = (from nd in db.NguoiDung
                            where nd.IdNguoiDung == idNguoiDang
                            select nd.AnhNguoiDung).FirstOrDefault();
 
             imgAnhNguoiDang.Source = new BitmapImage(new Uri(XuLyAnh.layDuongDanDayDuToiFileAnhDaiDien(linkAnh)));
 
-            var nguoiDang = (from nd in db.NguoiDungs
-                             join dgnd in db.DanhGiaNguoiDangs on nd.IdNguoiDung equals dgnd.IdNguoiDang
+            var nguoiDang = (from nd in db.NguoiDung
+                             join dgnd in db.DanhGiaNguoiDang on nd.IdNguoiDung equals dgnd.IdNguoiDang
                              group dgnd by new { nd.IdNguoiDung, nd.HoTenNguoiDung } into g
                              where g.Key.IdNguoiDung == idNguoiDang
                              select new
@@ -206,12 +206,12 @@ namespace TraoDoiDo
 
         private void btnThemVaoGioHang_Click(object sender, RoutedEventArgs e)
         {
-            GioHang gioHang = db.GioHangs.Find(idNguoiMua, idSanPham);
+            GioHang gioHang = db.GioHang.Find(idNguoiMua, idSanPham);
             if (gioHang != null)
-                db.GioHangs.Remove(gioHang);
+                db.GioHang.Remove(gioHang);
 
             gioHang = new GioHang() { IdNguoiMua =idNguoiMua, IdSanPham=idSanPham, SoLuongMua = txtbSoLuongHienTai.Text };
-            db.GioHangs.Add(gioHang);
+            db.GioHang.Add(gioHang);
 
             db.SaveChanges();
             

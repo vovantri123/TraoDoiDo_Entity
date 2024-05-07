@@ -60,16 +60,16 @@ namespace TraoDoiDo
             nguonTienTu = chonNguonTien();
             nguonTienDen = "Ví điện tử";
             thoiGianGiaoDich = DateTime.Now.ToString();
-            double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDungs
+            double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDung
                                                        where nd.IdNguoiDung == ngDung.IdNguoiDung
                                                        select nd.TienNguoiDung).FirstOrDefault());
 
             double soTienSauNap = soTienNguoiDung + soTienNap;
 
             GiaoDich giaoDich = new GiaoDich() { IdNguoiDung = ngDung.IdNguoiDung, LoaiGiaoDich = txtbTieuDe.Text,SoTien = soTienNap.ToString(), TuNguonGiaoDich = nguonTienTu, DenNguonGiaoDich = nguonTienDen, NgayGiaoDich = thoiGianGiaoDich};
-            db.GiaoDiches.Add(giaoDich);
+            db.GiaoDich.Add(giaoDich);
 
-            NguoiDung nguoiDung = db.NguoiDungs.Find(ngDung.IdNguoiDung);
+            NguoiDung nguoiDung = db.NguoiDung.Find(ngDung.IdNguoiDung);
             nguoiDung.TienNguoiDung = soTienSauNap.ToString(); 
 
             db.SaveChanges();
@@ -85,15 +85,15 @@ namespace TraoDoiDo
             nguonTienTu = "Ví điện tử";
             nguonTienDen = chonNguonTien();
             thoiGianGiaoDich = DateTime.Now.ToString();
-            double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDungs
+            double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDung
                                                        where nd.IdNguoiDung == ngDung.IdNguoiDung
                                                        select nd.TienNguoiDung).FirstOrDefault());
             double soTienSauRut = soTienNguoiDung - soTienRut;
 
             GiaoDich giaoDich = new GiaoDich() { IdNguoiDung = ngDung.IdNguoiDung, LoaiGiaoDich = txtbTieuDe.Text, SoTien = soTienRut.ToString(), TuNguonGiaoDich = nguonTienTu, DenNguonGiaoDich = nguonTienDen, NgayGiaoDich = thoiGianGiaoDich };
-            db.GiaoDiches.Add(giaoDich);
+            db.GiaoDich.Add(giaoDich);
 
-            NguoiDung nguoiDung = db.NguoiDungs.Find(ngDung.IdNguoiDung);
+            NguoiDung nguoiDung = db.NguoiDung.Find(ngDung.IdNguoiDung);
             nguoiDung.TienNguoiDung = soTienSauRut.ToString();
 
             db.SaveChanges();

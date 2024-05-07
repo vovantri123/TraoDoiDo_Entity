@@ -50,9 +50,9 @@ namespace TraoDoiDo.Views.MuaDo
         }
         private void LoadLsvTrongTabTrangThaiDonHang(string tenLsv, string trangthai)
         {
-            var dsTrangThaiDon = (from ttdh in db.TrangThaiDonHangs
-                                  join nd in db.NguoiDungs on ttdh.IdNguoiMua equals nd.IdNguoiDung
-                                  join sp in db.SanPhams on ttdh.IdSanPham equals sp.IdSanPham
+            var dsTrangThaiDon = (from ttdh in db.TrangThaiDonHang
+                                  join nd in db.NguoiDung on ttdh.IdNguoiMua equals nd.IdNguoiDung
+                                  join sp in db.SanPham on ttdh.IdSanPham equals sp.IdSanPham
                                   where nd.IdNguoiDung == ngMua.IdNguoiDung && ttdh.TrangThai == trangthai
                                   select new
                                   {
@@ -93,14 +93,14 @@ namespace TraoDoiDo.Views.MuaDo
             {
                 if (MessageBox.Show("Bạn có chắc là muốn hủy đặt hàng 0_o\nĐơn hàng mà bạn hủy sẽ được hoàn tiền", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 { 
-                    TrangThaiDonHang trangThai = db.TrangThaiDonHangs.Find(ngMua.IdNguoiDung, duLieuCuaDongChuaButton.IdSP);
-                    db.TrangThaiDonHangs.Remove(trangThai);
+                    TrangThaiDonHang trangThai = db.TrangThaiDonHang.Find(ngMua.IdNguoiDung, duLieuCuaDongChuaButton.IdSP);
+                    db.TrangThaiDonHang.Remove(trangThai);
 
                     int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
-                    var donHang = (from qldh in db.QuanLyDonHangs 
+                    var donHang = (from qldh in db.QuanLyDonHang 
                                     where qldh.IdNguoiMua == ngMua.IdNguoiDung && qldh.IdSanPham == idsp
                                     select qldh).FirstOrDefault();
-                    db.QuanLyDonHangs.Remove(donHang);
+                    db.QuanLyDonHang.Remove(donHang);
 
                     db.SaveChanges();
                          
@@ -119,11 +119,11 @@ namespace TraoDoiDo.Views.MuaDo
             {
                 if (MessageBox.Show("Bạn có chắc là đã nhận được hàng 0_o", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 { 
-                    TrangThaiDonHang trangThai = db.TrangThaiDonHangs.Find(ngMua.IdNguoiDung, duLieuCuaDongChuaButton.IdSP);
+                    TrangThaiDonHang trangThai = db.TrangThaiDonHang.Find(ngMua.IdNguoiDung, duLieuCuaDongChuaButton.IdSP);
                     trangThai.TrangThai = "Đã nhận";
 
                     int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
-                    var donHang = (from qldh in db.QuanLyDonHangs
+                    var donHang = (from qldh in db.QuanLyDonHang
                                     where qldh.IdNguoiMua == ngMua.IdNguoiDung && qldh.IdSanPham == idsp
                                     select qldh).FirstOrDefault();
                     donHang.TrangThai = "Đã giao";
@@ -144,8 +144,8 @@ namespace TraoDoiDo.Views.MuaDo
             if (duLieuCuaDongChuaButton != null)
             { 
                 int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
-                var nguoiDang = (from sp in db.SanPhams
-                                    join  nd in db.NguoiDungs on sp.IdNguoiDang equals nd.IdNguoiDung
+                var nguoiDang = (from sp in db.SanPham
+                                    join  nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
                                     where sp.IdSanPham == idsp
                                     select nd).FirstOrDefault();
 

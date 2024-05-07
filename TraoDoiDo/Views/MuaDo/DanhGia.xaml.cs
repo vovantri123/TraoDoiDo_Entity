@@ -11,8 +11,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes; 
-
+using System.Windows.Shapes;
+using TraoDoiDo;
 namespace TraoDoiDo
 {
     /// <summary>
@@ -40,12 +40,12 @@ namespace TraoDoiDo
 
         private void btnGuiDanhGia_Click(object sender, RoutedEventArgs e)
         {
-            var danhGia = db.DanhGiaNguoiDangs.Find(idNguoiDang, idNguoiMua);
+            var danhGia = db.DanhGiaNguoiDang.Find(idNguoiDang, idNguoiMua);
             if(danhGia != null)
-                db.DanhGiaNguoiDangs.Remove(danhGia);
+                db.DanhGiaNguoiDang.Remove(danhGia);
 
-            danhGia = new DanhGiaNguoiDang() { IdNguoiDang = idNguoiDang, IdNguoiMua = idNguoiMua, SoSao = ratingBarSoSao.Value.ToString(), NhanXet = txtbDanhGia.Text };
-            db.DanhGiaNguoiDangs.Add(danhGia);
+            danhGia = new DanhGiaNguoiDang() { IdNguoiDang = idNguoiDang, IdNguoiMua = idNguoiMua, SoSao = Convert.ToInt32(ratingBarSoSao.Value), NhanXet = txtbDanhGia.Text };
+            db.DanhGiaNguoiDang.Add(danhGia);
 
             db.SaveChanges();
 

@@ -52,9 +52,9 @@ namespace TraoDoiDo.Views.MuaDo
             soLuongSP = 0;
             try
             {
-                var dsSanPham = from sp in db.SanPhams
-                                join nd in db.NguoiDungs on sp.IdNguoiDang equals nd.IdNguoiDung
-                                join dmyt in db.DanhMucYeuThiches
+                var dsSanPham = from sp in db.SanPham
+                                join nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
+                                join dmyt in db.DanhMucYeuThich
                                     on new { IdNguoiMua = ngMua.IdNguoiDung, sp.IdSanPham } equals new { dmyt.IdNguoiMua, dmyt.IdSanPham } into g
                                 from dmyt in g.DefaultIfEmpty()
                                 where sp.IdNguoiDang != ngMua.IdNguoiDung
@@ -197,7 +197,7 @@ namespace TraoDoiDo.Views.MuaDo
         private void SapXepTheoGanDay()
         { 
             wpnlHienThi.Children.Clear();
-            var tuKhoaSanPhamDangQuanTam = (from ng in db.NguoiDungs
+            var tuKhoaSanPhamDangQuanTam = (from ng in db.NguoiDung
                                             where ng.IdNguoiDung == ngMua.IdNguoiDung
                                             select ng.TuKhoaSanPhamDangQuanTam).FirstOrDefault();
             if (tuKhoaSanPhamDangQuanTam == null)
@@ -225,7 +225,7 @@ namespace TraoDoiDo.Views.MuaDo
                     if (tenSP.Contains(timKiem))
                         wpnlHienThi.Children.Add(DanhSachSanPham[i]);
 
-                    NguoiDung nd = db.NguoiDungs.Find(ngMua.IdNguoiDung);
+                    NguoiDung nd = db.NguoiDung.Find(ngMua.IdNguoiDung);
                     nd.TuKhoaSanPhamDangQuanTam = timKiem;
                     db.SaveChanges(); 
                 }

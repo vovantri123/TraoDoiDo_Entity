@@ -60,7 +60,7 @@ namespace TraoDoiDo
         private void btnNhanVoucher_Click(object sender, RoutedEventArgs e)
         {
             NguoiDungVoucher ndvc = new NguoiDungVoucher() { IdVoucher = Convert.ToInt32(txtbIdVoucher.Text), IdNguoiDung = idNguoiMua};
-            db.NguoiDungVouchers.Add(ndvc);
+            db.NguoiDungVoucher.Add(ndvc);
             db.SaveChanges();
         } 
     }

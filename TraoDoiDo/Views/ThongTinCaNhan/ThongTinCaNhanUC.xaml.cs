@@ -36,8 +36,8 @@ namespace TraoDoiDo
             InitializeComponent();
             this.DataContext = this;
             Loaded += UCThongTinCaNhan_Loaded;
-            this.nguoi = db.NguoiDungs.Find(nguoi.IdNguoiDung);
-            this.taiKhoan = db.TaiKhoans.Find(nguoi.IdNguoiDung);
+            this.nguoi = db.NguoiDung.Find(nguoi.IdNguoiDung);
+            this.taiKhoan = db.TaiKhoan.Find(nguoi.IdNguoiDung);
         }
 
         private void UCThongTinCaNhan_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace TraoDoiDo
 
             string tenAnh = XuLyAnh.layDuongDanDayDuToiFileAnhDaiDien(imageHinhDaiDien.Source.ToString());
             string tenFileAnh = Path.GetFileName(tenAnh);
-            string tien = (from nd in db.NguoiDungs
+            string tien = (from nd in db.NguoiDung
                            where nd.IdNguoiDung == nguoi.IdNguoiDung
                            select nd.TienNguoiDung).FirstOrDefault();
 

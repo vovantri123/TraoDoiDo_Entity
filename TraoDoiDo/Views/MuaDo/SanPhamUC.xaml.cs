@@ -43,10 +43,10 @@ namespace TraoDoiDo
 
             this.yeuThich = yeuThich;
             this.idNguoiMua = idNguoiMua;
-            sp = db.SanPhams.Find(Convert.ToInt32(txtbIdSanPham.Text));
+            sp = db.SanPham.Find(Convert.ToInt32(txtbIdSanPham.Text));
 
-            nguoiDang = (from sp in db.SanPhams
-                         join nd in db.NguoiDungs on sp.IdNguoiDang equals nd.IdNguoiDung
+            nguoiDang = (from sp in db.SanPham
+                         join nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
                          where sp.IdSanPham == sp.IdSanPham
                          select nd
                          ).FirstOrDefault() ;
@@ -69,11 +69,11 @@ namespace TraoDoiDo
         private void tangSoLuotXemThem1()
         {
             int idSanPham = Convert.ToInt32(txtbIdSanPham.Text);
-            var soLuotXem = (from sp in db.SanPhams 
+            var soLuotXem = (from sp in db.SanPham
                              where sp.IdSanPham == idSanPham
                              select sp.SoLuotXem).FirstOrDefault();
 
-            SanPham sanPham = db.SanPhams.Find(idSanPham);
+            SanPham sanPham = db.SanPham.Find(idSanPham);
             sanPham.SoLuotXem = (Convert.ToInt32(soLuotXem) + 1).ToString();
 
             db.SaveChanges();
@@ -102,7 +102,7 @@ namespace TraoDoiDo
             btnBoYeuThich.Visibility = Visibility.Visible; 
 
             DanhMucYeuThich danhMuc = new DanhMucYeuThich() { IdNguoiMua = Convert.ToInt32(idNguoiMua), IdSanPham = Convert.ToInt32(txtbIdSanPham.Text) };
-            db.DanhMucYeuThiches.Add(danhMuc);
+            db.DanhMucYeuThich.Add(danhMuc);
             db.SaveChanges(); 
         }
 
@@ -111,8 +111,8 @@ namespace TraoDoiDo
             btnBoYeuThich.Visibility = Visibility.Collapsed;
             btnThemVaoYeuThich.Visibility = Visibility.Visible;
 
-            DanhMucYeuThich danhMuc = db.DanhMucYeuThiches.Find(Convert.ToInt32(idNguoiMua), Convert.ToInt32(txtbIdSanPham.Text));
-            db.DanhMucYeuThiches.Remove(danhMuc); 
+            DanhMucYeuThich danhMuc = db.DanhMucYeuThich.Find(Convert.ToInt32(idNguoiMua), Convert.ToInt32(txtbIdSanPham.Text));
+            db.DanhMucYeuThich.Remove(danhMuc); 
             db.SaveChanges();
         }
     }

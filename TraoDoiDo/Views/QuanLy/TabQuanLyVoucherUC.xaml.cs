@@ -43,7 +43,7 @@ namespace TraoDoiDo.Views.QuanLy
 
         private void LoadDanhSachVoucer()
         {
-            List<Voucher> dsVoucher = (from vc in db.Vouchers
+            List<Voucher> dsVoucher = (from vc in db.Voucher
                                        select vc).ToList();
             lsvQLVoucher.ItemsSource = dsVoucher;
         }
@@ -84,7 +84,7 @@ namespace TraoDoiDo.Views.QuanLy
 
                 //if (voucher.kiemTraCacTextBox())
                 { 
-                    db.Vouchers.Add(voucher);
+                    db.Voucher.Add(voucher);
                     db.SaveChanges();
 
                     FQuanLyVoucher_Loaded(sender, e);
@@ -96,7 +96,7 @@ namespace TraoDoiDo.Views.QuanLy
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn sửa mục đã chọn?", "Xác nhận sửa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                Voucher voucher = db.Vouchers.Find(Convert.ToInt32(txtbIdVoucher.Text));
+                Voucher voucher = db.Voucher.Find(Convert.ToInt32(txtbIdVoucher.Text));
                 Voucher voucherMoi = new Voucher()
                 {
                     TenVoucher = txtbTenVoucher.Text,
@@ -135,13 +135,13 @@ namespace TraoDoiDo.Views.QuanLy
                 {
                     int idVoucher = duLieuCuaDongChuaButton.IdVoucher;
 
-                    List<NguoiDungVoucher> NguoiDungVoucherMuonXoa = (from ndvc in db.NguoiDungVouchers
+                    List<NguoiDungVoucher> NguoiDungVoucherMuonXoa = (from ndvc in db.NguoiDungVoucher
                                                                       where ndvc.IdVoucher == idVoucher
                                                                       select ndvc).ToList();
-                    db.NguoiDungVouchers.RemoveRange(NguoiDungVoucherMuonXoa);
+                    db.NguoiDungVoucher.RemoveRange(NguoiDungVoucherMuonXoa);
 
-                    Voucher voucherMuonXoa = db.Vouchers.Find(idVoucher);
-                    db.Vouchers.Remove(voucherMuonXoa);
+                    Voucher voucherMuonXoa = db.Voucher.Find(idVoucher);
+                    db.Voucher.Remove(voucherMuonXoa);
 
                     db.SaveChanges();
 

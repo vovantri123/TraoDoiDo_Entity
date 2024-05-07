@@ -50,9 +50,9 @@ namespace TraoDoiDo.Views.Windows
 
         private void LsvGioHang_Load(object sender, RoutedEventArgs e)
         { 
-            var dsGioHang = (from gh in db.GioHangs
-                             join nd in db.NguoiDungs on gh.IdNguoiMua equals nd.IdNguoiDung
-                             join sp in db.SanPhams on gh.IdSanPham equals sp.IdSanPham
+            var dsGioHang = (from gh in db.GioHang
+                             join nd in db.NguoiDung on gh.IdNguoiMua equals nd.IdNguoiDung
+                             join sp in db.SanPham on gh.IdSanPham equals sp.IdSanPham
                              where nd.IdNguoiDung == ngMua.IdNguoiDung
                              select new
                              {
@@ -82,8 +82,8 @@ namespace TraoDoiDo.Views.Windows
         private void LoadVoucherCuaToi(object sender, RoutedEventArgs e)
         {
             spnlVoucherCuaToi.Children.Clear();
-            var dsVoucher = (from vc in db.Vouchers
-                             join ndvc in db.NguoiDungVouchers on vc.IdVoucher equals ndvc.IdVoucher
+            var dsVoucher = (from vc in db.Voucher
+                             join ndvc in db.NguoiDungVoucher on vc.IdVoucher equals ndvc.IdVoucher
                              where ndvc.IdNguoiDung == ngMua.IdNguoiDung
                              select vc).ToList();
 
@@ -123,8 +123,8 @@ namespace TraoDoiDo.Views.Windows
             if (duLieuCuaDongChuaButton != null && MessageBox.Show("Bạn có chắc chắn muốn xóa mục đã chọn?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 try
                 { 
-                    GioHang gioHang = db.GioHangs.Find(duLieuCuaDongChuaButton.IdSP, ngMua.IdNguoiDung);
-                    db.GioHangs.Remove(gioHang);
+                    GioHang gioHang = db.GioHang.Find(duLieuCuaDongChuaButton.IdSP, ngMua.IdNguoiDung);
+                    db.GioHang.Remove(gioHang);
                     db.SaveChanges();
                     GioHang_Load(sender, e);
                 }

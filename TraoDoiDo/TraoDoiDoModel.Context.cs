@@ -25,17 +25,18 @@ namespace TraoDoiDo
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DanhGiaNguoiDang> DanhGiaNguoiDangs { get; set; }
-        public virtual DbSet<DanhMucYeuThich> DanhMucYeuThiches { get; set; }
-        public virtual DbSet<GiaoDich> GiaoDiches { get; set; }
-        public virtual DbSet<GioHang> GioHangs { get; set; }
-        public virtual DbSet<MoTaAnhSanPham> MoTaAnhSanPhams { get; set; }
-        public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
-        public virtual DbSet<NguoiDungVoucher> NguoiDungVouchers { get; set; }
-        public virtual DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
-        public virtual DbSet<SanPham> SanPhams { get; set; }
-        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
-        public virtual DbSet<TrangThaiDonHang> TrangThaiDonHangs { get; set; }
-        public virtual DbSet<Voucher> Vouchers { get; set; }
+        public virtual DbSet<DanhGiaNguoiDang> DanhGiaNguoiDang { get; set; }
+        public virtual DbSet<DanhMucYeuThich> DanhMucYeuThich { get; set; }
+        public virtual DbSet<GiaoDich> GiaoDich { get; set; }
+        public virtual DbSet<GioHang> GioHang { get; set; }
+        public virtual DbSet<MoTaAnhSanPham> MoTaAnhSanPham { get; set; }
+        public virtual DbSet<NguoiDung> NguoiDung { get; set; }
+        public virtual DbSet<NguoiDungVoucher> NguoiDungVoucher { get; set; }
+        public virtual DbSet<QuanLyDonHang> QuanLyDonHang { get; set; }
+        public virtual DbSet<SanPham> SanPham { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
+        public virtual DbSet<TrangThaiDonHang> TrangThaiDonHang { get; set; }
+        public virtual DbSet<Voucher> Voucher { get; set; }
     }
 }

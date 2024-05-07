@@ -80,7 +80,7 @@ namespace TraoDoiDo
                     string moTa = DanhSachAnhVaMoTa[i].txtbMoTa.Text;
                     //MoTaAnhSanPham mta = new MoTaAnhSanPham(id, idAnhMinhHoa, tenFileAnh, moTa);
                     MoTaAnhSanPham mta = new MoTaAnhSanPham() {IdSanPham = idsp, IdAnhMinhHoa = idAnhMinhHoa, LinkAnhMinhHoa = tenFileAnh, MoTa = moTa}; 
-                    db.MoTaAnhSanPhams.Add(mta);
+                    db.MoTaAnhSanPham.Add(mta);
                     db.SaveChanges();
                     XuLyAnh.LuuAnhVaoThuMuc(DanhSachAnhVaMoTa[i].txtbDuongDanAnh.Text, "HinhSanPham");
                 }
@@ -95,7 +95,7 @@ namespace TraoDoiDo
             // bool check = sp.kiemTraCacTextBox();
             //if (check)
             {
-                db.SanPhams.Add(sanPhamMoi);
+                db.SanPham.Add(sanPhamMoi);
                 db.SaveChanges();
                 themAnhVaMoTaVaoCSDL();
                 MessageBox.Show("Đăng đồ thành công");

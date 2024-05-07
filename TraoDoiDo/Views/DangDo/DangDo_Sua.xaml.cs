@@ -70,11 +70,11 @@ namespace TraoDoiDo
         private void suaAnhVaMoTaTrongCSDL()
         {
             // Xóa dữ liệu cũ khỏi bảng MoTaAnhSanPham 
-            var moTaAnhSPCanXoa = (from mtasp in db.MoTaAnhSanPhams
+            var moTaAnhSPCanXoa = (from mtasp in db.MoTaAnhSanPham
                                    where mtasp.IdSanPham == sanPham.IdSanPham
                                    select mtasp).ToList();
              
-            db.MoTaAnhSanPhams.RemoveRange(moTaAnhSPCanXoa); 
+            db.MoTaAnhSanPham.RemoveRange(moTaAnhSPCanXoa); 
 
             //Cập  nhật dữ liệu mới
             for (int i = 0; i < soLuongAnh; i++)
@@ -83,7 +83,7 @@ namespace TraoDoiDo
                 {
                     //MoTaAnhSanPham moTaAnhSP = new MoTaAnhSanPham(ucThongTin.txtbIdSanPham.Text, (i + 1).ToString(), null, DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text, DanhSachAnhVaMoTa[i].txtbMoTa.Text);
                     var moTaAnhSP = new MoTaAnhSanPham() { IdSanPham = Convert.ToInt32(ucThongTin.txtbIdSanPham.Text), IdAnhMinhHoa = i + 1, LinkAnhMinhHoa = DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text, MoTa = DanhSachAnhVaMoTa[i].txtbMoTa.Text };
-                    db.MoTaAnhSanPhams.Add(moTaAnhSP);
+                    db.MoTaAnhSanPham.Add(moTaAnhSP);
 
                     XuLyAnh.LuuAnhVaoThuMuc(DanhSachAnhVaMoTa[i].txtbDuongDanAnh.Text, "HinhSanPham");
                 }
@@ -108,7 +108,7 @@ namespace TraoDoiDo
             //SanPham sanPhamMoi = new SanPham(ucThongTin.txtbIdSanPham.Text, sanPham.IdNguoiDang, ucThongTin.txtbTen.Text, tenFileAnh, ucThongTin.txtbLoai.Text, ucThongTin.ucTangGiamSoLuongTong.txtbSoLuong.Text, ucThongTin.ucTangGiamSoLuongDaBan.txtbSoLuong.Text, ucThongTin.txtbGiaGoc.Text,
             //    ucThongTin.txtbGiaBan.Text, ucThongTin.txtbPhiShip.Text, "Đã duyệt", ucThongTin.cboNoiBan.Text, ucThongTin.cboXuatXu.Text, ucThongTin.dtpNgayMua.SelectedDate.Value.ToString("dd/MM/yyyy"), ucThongTin.txtbMoTaChung.Text, ucThongTin.progressSlidere_PhanTramMoi.Value.ToString(), luotXem, null, null);
 
-            SanPham sanPhamMoi = db.SanPhams.Find(sanPham.IdSanPham);
+            SanPham sanPhamMoi = db.SanPham.Find(sanPham.IdSanPham);
             sanPhamMoi.IdSanPham = Convert.ToInt32(ucThongTin.txtbIdSanPham.Text);
             sanPhamMoi.Ten = ucThongTin.txtbTen.Text;
             sanPhamMoi.LinkAnhBia = tenFileAnh;
