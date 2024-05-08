@@ -276,9 +276,6 @@
                                     Height="52"
                                     Margin="2,20,2,18"
                                     materialDesign:ButtonAssist.CornerRadius="4"
-                                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                                    materialDesign:ButtonProgressAssist.Value="-1"
                                     Click="btnThemVaoGioHang_Click"
                                     FontSize="25">
                                     <Button.Background>

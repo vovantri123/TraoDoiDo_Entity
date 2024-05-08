@@ -115,9 +115,6 @@
     <Compile Include="SanPham.cs">
       <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TaiKhoan.cs">
       <DependentUpon>TraoDoiDoModel.tt</DependentUpon>
     </Compile>

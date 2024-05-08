@@ -93,9 +93,9 @@ namespace TraoDoiDo.Views.DangDo
 
             if (tongSoLuotDanhGia == 0)
                 tongSoLuotDanhGia = 1;
-            ratingBar_SoSao.Value = (soLuong1Sao * 1 + soLuong2Sao * 2 + soLuong3Sao * 3 + soLuong4Sao * 4 + soLuong5Sao * 5) / tongSoLuotDanhGia;
+            ratingBar_SoSao.Value = (double)(soLuong1Sao * 1 + soLuong2Sao * 2 + soLuong3Sao * 3 + soLuong4Sao * 4 + soLuong5Sao * 5) / tongSoLuotDanhGia;
 
-            txtbSoSaoTrungBinh.Text = ratingBar_SoSao.Value.ToString("0.0");
+            txtbSoSaoTrungBinh.Text = ratingBar_SoSao.Value.ToString("0.##");
 
 
             progressBar1Sao.Value = ((double)soLuong1Sao / tongSoLuotDanhGia) * 100;

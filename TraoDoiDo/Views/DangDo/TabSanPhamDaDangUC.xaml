@@ -38,9 +38,6 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     materialDesign:ButtonAssist.CornerRadius="7"
-                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                    materialDesign:ButtonProgressAssist.Value="-1"
                     BorderBrush="#FFFFEEFA"
                     Click="btnThemSanPhamMoi_Click"
                     Style="{StaticResource MaterialDesignRaisedButton}">

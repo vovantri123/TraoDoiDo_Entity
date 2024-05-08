@@ -51,12 +51,12 @@ namespace TraoDoiDo
 
             Loaded += LoadThongTinSanPham;
             Loaded += LoadAnhVaMoTa;
-            Loaded += btnAnhSau_Click;
             Loaded += LoadThongTinNguoiDang;
+            Loaded += btnAnhSau_Click;
         }
 
         private void LoadThongTinSanPham(object sender, RoutedEventArgs e)
-        {
+        { 
             string soLuong = sp.SoLuong;
             string soLuongDaBan = sp.SoLuongDaBan;
             txtbSoLuongConLai.Text = (Convert.ToInt32(soLuong) - Convert.ToInt32(soLuongDaBan)).ToString();
@@ -109,7 +109,7 @@ namespace TraoDoiDo
             int i = 0;
             foreach (var dong in dsSanPhamCungLoai)
             { 
-                DanhSachSanPhamUC[i] = new SanPhamUC(0, idNguoiMua);
+                DanhSachSanPhamUC[i] = new SanPhamUC(0, idNguoiMua, Convert.ToInt32(dong.IdNguoiDang), Convert.ToInt32(dong.IdSanPham));
 
                 DanhSachSanPhamUC[i].txtbIdSanPham.Text = dong.IdSanPham.ToString();
                 DanhSachSanPhamUC[i].txtbTen.Text = dong.Ten;
@@ -137,7 +137,7 @@ namespace TraoDoiDo
         }
          
         private void LoadThongTinNguoiDang(object sender, RoutedEventArgs e)
-        { 
+        {
             var linkAnh = (from nd in db.NguoiDung
                            where nd.IdNguoiDung == idNguoiDang
                            select nd.AnhNguoiDung).FirstOrDefault();
@@ -154,8 +154,10 @@ namespace TraoDoiDo
                                  SoLuotDanhGia = g.Count()
                              }).FirstOrDefault();
 
-            txtbTenNguoiDang.Text = nguoiDang.TenNguoiDang;
-            txtbSoLuotDanhGia.Text = nguoiDang.SoLuotDanhGia.ToString();
+            if (nguoiDang == null)
+                txtbSoLuotDanhGia.Text = "0";
+            else
+                txtbSoLuotDanhGia.Text = nguoiDang.SoLuotDanhGia.ToString(); 
         }
          
 

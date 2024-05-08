@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TraoDoiDo;
+using TraoDoiDo.ViewModels;
 namespace TraoDoiDo
 {
     /// <summary>
@@ -35,6 +36,11 @@ namespace TraoDoiDo
             InitializeComponent();
             this.idNguoiMua = idNguoiMua;
             this.idNguoiDang = idNguoiDang;
+
+            string tenFileAnh = (from nd in db.NguoiDung
+                                 where nd.IdNguoiDung == idNguoiDang
+                                 select nd.AnhNguoiDung).FirstOrDefault();
+            imgAnhNguoiDang.Source = new BitmapImage(new Uri(XuLyAnh.layDuongDanDayDuToiFileAnhDaiDien(tenFileAnh)));
         }
 
 

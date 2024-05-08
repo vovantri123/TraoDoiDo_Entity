@@ -57,7 +57,7 @@ namespace TraoDoiDo.Views.MuaDo
                                 join dmyt in db.DanhMucYeuThich
                                     on new { IdNguoiMua = ngMua.IdNguoiDung, sp.IdSanPham } equals new { dmyt.IdNguoiMua, dmyt.IdSanPham } into g
                                 from dmyt in g.DefaultIfEmpty()
-                                where sp.IdNguoiDang != ngMua.IdNguoiDung
+                                where sp.IdNguoiDang != ngMua.IdNguoiDung 
                                 select new
                                 {
                                     SanPham = sp, 
@@ -73,7 +73,7 @@ namespace TraoDoiDo.Views.MuaDo
                         yeuThich = 1;
                     }
 
-                    DanhSachSanPham[soLuongSP] = new SanPhamUC(yeuThich, ngMua.IdNguoiDung); // Khởi tạo mỗi phần tử của mảng (KHÔNG CÓ LÀ LỖI)
+                    DanhSachSanPham[soLuongSP] = new SanPhamUC(yeuThich, ngMua.IdNguoiDung, Convert.ToInt32(dong.SanPham.IdNguoiDang), Convert.ToInt32(dong.SanPham.IdSanPham)); // Khởi tạo mỗi phần tử của mảng (KHÔNG CÓ LÀ LỖI)
 
                     DanhSachSanPham[soLuongSP].txtbIdSanPham.Text = dong.SanPham.IdSanPham.ToString();
                     DanhSachSanPham[soLuongSP].txtbTen.Text = dong.SanPham.Ten;

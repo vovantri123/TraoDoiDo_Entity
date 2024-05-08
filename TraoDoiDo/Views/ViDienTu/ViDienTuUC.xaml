@@ -83,9 +83,7 @@
                             Margin="5,10,5,0"
                             VerticalAlignment="Center"
                             materialDesign:ButtonAssist.CornerRadius="10"
-                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                            materialDesign:ButtonProgressAssist.Value="-1"
+                            
                             Background="DeepSkyBlue"
                             Click="btnNapTien_Click"
                             FontSize="23">
@@ -104,9 +102,7 @@
                             Margin="5,5,5,0"
                             VerticalAlignment="Center"
                             materialDesign:ButtonAssist.CornerRadius="10"
-                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                            materialDesign:ButtonProgressAssist.Value="-1"
+                            
                             Background="DeepSkyBlue"
                             Click="btnRutTien_Click"
                             FontSize="23">

@@ -69,7 +69,7 @@ namespace TraoDoiDo
         {
             TaiKhoan taiKhoanMoi = new TaiKhoan() { TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password, IdNguoiDung = nguoi.IdNguoiDung}; 
             //if (taiKhoanMoi.kiemTraCacTextBox())
-            { 
+            {
                 taiKhoan.TenDangNhap = taiKhoanMoi.TenDangNhap;
                 taiKhoan.MatKhau = taiKhoanMoi.MatKhau;
                 db.SaveChanges();

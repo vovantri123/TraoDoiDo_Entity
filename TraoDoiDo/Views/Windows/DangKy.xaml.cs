@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using LiveCharts.Wpf.Charts.Base;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,6 +24,7 @@ namespace TraoDoiDo
     public partial class DangKy : Window
     {
         TraoDoiDoEntities db = new TraoDoiDoEntities();
+
         public DangKy()
         {
             InitializeComponent();
@@ -29,28 +32,26 @@ namespace TraoDoiDo
         }
 
         private void btnDangKy_Click(object sender, RoutedEventArgs e)
-        { 
-            ////NguoiDung nguoi = new NguoiDung("0", txtHoTen.Text, cbGioiTinh.Text, dtpNgaySinh.Text, txtCMND.Text, txtEmail.Text, txtSdt.Text, txtDiaChi.Text, txtbTenFileAnh.Text, taiKhoan, "0");
-            //TaiKhoan taiKhoan = new TaiKhoan() { TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password.ToString() };
-            //NguoiDung nguoi = new NguoiDung() { HoTenNguoiDung = txtHoTen.Text, GioiTinhNguoiDung = cbGioiTinh.Text, NgaySinhNguoiDung = dtpNgaySinh.Text, CMNDNguoiDung = txtCMND.Text, EmailNguoiDung = txtEmail.Text, SdtNguoiDung = txtSdt.Text, DiaChiNguoiDung=txtDiaChi.Text,  TienNguoiDung = "0"};
+        {
+            var idMax = db.NguoiDung.Max(p => p.IdNguoiDung);
+            int id = Convert.ToInt32(idMax) + 1;
+             
+            NguoiDung nguoi = new NguoiDung() { IdNguoiDung = id, HoTenNguoiDung = txtHoTen.Text, GioiTinhNguoiDung = cbGioiTinh.Text, NgaySinhNguoiDung = dtpNgaySinh.Text, CMNDNguoiDung = txtCMND.Text, EmailNguoiDung = txtEmail.Text, SdtNguoiDung = txtSdt.Text, DiaChiNguoiDung = txtDiaChi.Text, AnhNguoiDung = txtbTenFileAnh.Text, TienNguoiDung = "0" };
+            TaiKhoan taiKhoan = new TaiKhoan() { TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password.ToString(), IdNguoiDung = id };
+            try
+            {
+                db.NguoiDung.Add(nguoi);
+                db.TaiKhoan.Add(taiKhoan);
+                db.SaveChanges();
+                XuLyAnh.LuuAnhVaoThuMuc(txtbDuongDanAnh.Text, "HinhDaiDien");
+                MessageBox.Show("Đăng kí thành công");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đăng ký thất bại: " + ex.Message);
+            }
 
-            ////if (checkThongTinHopLe)
-            //{
-            //    try
-            //    {
-            //        db.NguoiDungs.Add(nguoi);
-            //        //db.TaiKhoans.Add(taiKhoan);
-
-            //        db.SaveChanges(); 
-            //        XuLyAnh.LuuAnhVaoThuMuc(txtbDuongDanAnh.Text, "HinhDaiDien");
-            //        MessageBox.Show("Đăng kí thành công");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Đăng ký thất bại: " + ex.Message);
-            //    }
-                
-            //}
         }
 
         private void btnChonAnh_Click(object sender, RoutedEventArgs e) //Chọn để hiển thị chứ chưa có lưu dô folder và csdl

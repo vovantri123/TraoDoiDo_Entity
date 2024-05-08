@@ -37,17 +37,19 @@ namespace TraoDoiDo
             InitializeComponent();
         }
 
-        public SanPhamUC(int yeuThich, int idNguoiMua)
+        public SanPhamUC(int yeuThich, int idNguoiMua, int idNguoiDang, int idSanPham)
         {
             InitializeComponent();
 
             this.yeuThich = yeuThich;
             this.idNguoiMua = idNguoiMua;
-            sp = db.SanPham.Find(Convert.ToInt32(txtbIdSanPham.Text));
+            this.idNguoiDang = idNguoiDang;
 
-            nguoiDang = (from sp in db.SanPham
+            sp = db.SanPham.Find(idSanPham);
+
+            nguoiDang = (from spham in db.SanPham
                          join nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
-                         where sp.IdSanPham == sp.IdSanPham
+                         where spham.IdSanPham == sp.IdSanPham
                          select nd
                          ).FirstOrDefault() ;
              
@@ -62,7 +64,6 @@ namespace TraoDoiDo
                 btnThemVaoYeuThich.Visibility = Visibility.Collapsed;
                 btnBoYeuThich.Visibility = Visibility.Visible;
             }
-            //nguoiDang = sanPhamDao.timKiemNguoiDangTheoIdSP(txtbIdSanPham.Text);
         }
 
 
@@ -87,13 +88,12 @@ namespace TraoDoiDo
             ThongTinChiTietSanPham f = new ThongTinChiTietSanPham(sp);
 
             f.idNguoiDang = nguoiDang.IdNguoiDung;
-            f.idNguoiMua = idNguoiMua;
-            f.idSanPham = Convert.ToInt32(txtbIdSanPham.Text);
-           
+            f.txtbTenNguoiDang.Text = nguoiDang.HoTenNguoiDung;
             f.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            f.idSanPham = Convert.ToInt32(txtbIdSanPham.Text);
 
+            f.idNguoiMua = idNguoiMua;
             f.ShowDialog();
-
         }
 
         private void btnThemVaoYeuThich_Click(object sender, RoutedEventArgs e)

@@ -61,7 +61,7 @@ namespace TraoDoiDo
             string t = (from nd in db.NguoiDung
                         where nd.IdNguoiDung == nguoiDung.IdNguoiDung
                         select nd.TienNguoiDung).FirstOrDefault();
-            decimal tien = Convert.ToDecimal(t);
+            double tien = Convert.ToDouble(t);
             txtbSoDu.Text = DinhDangTien(tien);
         }
 
@@ -74,7 +74,7 @@ namespace TraoDoiDo
                 lsvLichSuGiaoDich.Items.Add(new { Id = dong.IdGiaoDich, Type = dong.LoaiGiaoDich, Money = dong.SoTien, Initial = dong.TuNguonGiaoDich, End = dong.DenNguonGiaoDich, Date = dong.NgayGiaoDich });
         }
 
-        private static string DinhDangTien(decimal t)
+        private static string DinhDangTien(double t)
         {
             return t.ToString("#,##0");
         }

@@ -128,11 +128,11 @@
                                     DisplayMemberBinding="{Binding Address}"
                                     Header="Địa chỉ" />
                                 <GridViewColumn
-                                    Width="70"
+                                    Width="0"
                                     DisplayMemberBinding="{Binding Address}"
                                     Header="Số sao" />
                                 <!--  Cột "Sửa"  -->
-                                <GridViewColumn Width="120" Header="Hành động">
+                                <GridViewColumn Width="170" Header="Hành động">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">

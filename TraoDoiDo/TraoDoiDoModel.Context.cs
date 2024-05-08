@@ -34,7 +34,6 @@ namespace TraoDoiDo
         public virtual DbSet<NguoiDungVoucher> NguoiDungVoucher { get; set; }
         public virtual DbSet<QuanLyDonHang> QuanLyDonHang { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
         public virtual DbSet<TrangThaiDonHang> TrangThaiDonHang { get; set; }
         public virtual DbSet<Voucher> Voucher { get; set; }

@@ -28,9 +28,7 @@ namespace TraoDoiDo
             this.SanPham = new HashSet<SanPham>();
             this.TrangThaiDonHang = new HashSet<TrangThaiDonHang>();
         }
-        
-
-
+    
         public int IdNguoiDung { get; set; }
         public string HoTenNguoiDung { get; set; }
         public string GioiTinhNguoiDung { get; set; }

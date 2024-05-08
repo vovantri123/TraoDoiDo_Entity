@@ -137,7 +137,7 @@ namespace TraoDoiDo
         public void LoadWindow()
         {
             txtbTenNguoiDung.Text = nguoi.HoTenNguoiDung;
-            txtbTienNguoiDung.Text = Convert.ToDecimal(nguoi.TienNguoiDung).ToString("#,##0") + " đ";
+            txtbTienNguoiDung.Text = Convert.ToDouble(nguoi.TienNguoiDung).ToString("#,##0") + " đ";
         }
          
 

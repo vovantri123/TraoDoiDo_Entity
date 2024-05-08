@@ -117,92 +117,36 @@ namespace TraoDoiDo
         public double tinhTien()
         {
             double soTien = 0;
-            if (string.IsNullOrEmpty(txtGiaTien.Text))
-            {
-                if (rbtnMotTram.IsChecked == true)
-                {
-                    soTien += 100000;
-                }
-                if (rbtnHaiTram.IsChecked == true)
-                {
-                    soTien += 200000;
-                }
-                if (rbtnNamTram.IsChecked == true)
-                {
-                    soTien += 500000;
-                }
-                if (rbtnMotTrieu.IsChecked == true)
-                {
-                    soTien += 1000000;
-                }
-                if (rbtnHaiTrieu.IsChecked == true)
-                {
-                    soTien += 2000000;
-                }
-                if (rbtnNamTrieu.IsChecked == true)
-                {
-                    soTien += 5000000;
-                }
-            }
-            else
-            {
-                soTien += Convert.ToDouble(XoaDauCham(txtGiaTien.Text));
-            }
-            return soTien;
-
+            soTien += Convert.ToDouble(txtGiaTien.Text.Replace(",", ""));
+            return soTien; 
         }
         public string chonNguonTien()
         {
             string nguonTien = "";
             if (rbtnBIDV.IsChecked == true)
-            {
                 nguonTien = "BIDV";
-            }
             if (rbtnSacombank.IsChecked == true)
-            {
                 nguonTien = "Sacombank";
-            }
             if (rbtnACB.IsChecked == true)
-            {
                 nguonTien = "ACB";
-            }
             if (rbtnTPBank.IsChecked == true)
-            {
                 nguonTien = "TPBank";
-            }
             if (rbtnTechcombank.IsChecked == true)
-            {
                 nguonTien = "Techcombank";
-            }
             if (rbtnViettin.IsChecked == true)
-            {
                 nguonTien = "Viettin Bank";
-            }
             if (rbtnVietcombank.IsChecked == true)
-            {
                 nguonTien = "Vietcombank";
-            }
             if (rbtnVIB.IsChecked == true)
-            {
                 nguonTien = "VIB Bank";
-            }
             if (rbtnVPBank.IsChecked == true)
-            {
                 nguonTien = "VPBank";
-            }
-            
             if (rbtnAgribank.IsChecked == true)
-            {
                 nguonTien = "Agribank";
-            }
             if (rbtnBaoViet.IsChecked == true)
-            {
                 nguonTien = "BAOVIET Bank";
-            }
             if (rbtnVietA.IsChecked == true)
-            {
                 nguonTien = "VietA";
-            }
             return nguonTien;
         }
     }

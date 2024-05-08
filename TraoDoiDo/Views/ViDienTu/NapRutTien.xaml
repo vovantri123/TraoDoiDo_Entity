@@ -357,9 +357,7 @@
                 x:Name="btnRutTien"
                 Height="50"
                 Margin="2,0"
-                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                materialDesign:ButtonProgressAssist.Value="-1"
+                 
                 Click="btnRutTien_Click"
                 Content="Xác nhận giao dịch"
                 FontSize="17"

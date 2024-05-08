@@ -240,18 +240,12 @@
                         <Button
                             x:Name="btnDang"
                             Margin="2,0"
-                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                            materialDesign:ButtonProgressAssist.Value="-1"
                             Content="Đăng"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
                         <Button
                             x:Name="btnSua"
                             Margin="2,0"
-                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                            materialDesign:ButtonProgressAssist.Value="-1"
                             Content="Sửa"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
