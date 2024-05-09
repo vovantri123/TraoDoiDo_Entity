@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:TraoDoiDo.Views.Windows"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="736"
     d:DesignWidth="1200"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -26,105 +27,107 @@
             Margin="10,0,10,10"
             BorderBrush="{DynamicResource MaterialDesignDivider}"
             BorderThickness="2">
-            <ScrollViewer
+            <ListView
+                x:Name="lsvGioHang"
                 Grid.Column="0"
-                HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectionMode="Multiple">
+                <ListView.Resources>
+                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">15</sys:Double>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Background" Value="#ffffff" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="Background" Value="LightBlue" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                        <!--  Cột checkbox để chọn tất cả  -->
+                        <GridViewColumn Width="40" Header="">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox Checked="ChonTatCaCacDong_Checked" Unchecked="ChonTatCaCacDong_Checked" />
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                        Checked="TinhTienCuaNhungDongDuocChon_Checked"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                        Unchecked="TinhTienCuaNhungDongDuocChon_Checked" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                <ListView x:Name="lsvGioHang" SelectionMode="Multiple">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="VerticalContentAlignment" Value="Center" />
-                            <Setter Property="Background" Value="#ffffff" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.View>
-                        <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="Background" Value="LightBlue" />
-                                    <Setter Property="Foreground" Value="Black" />
-                                    <Setter Property="FontWeight" Value="Bold" />
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
-                            <!--  Cột checkbox để chọn tất cả  -->
-                            <GridViewColumn Width="40" Header="">
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Checked="ChonTatCaCacDong_Checked" Unchecked="ChonTatCaCacDong_Checked" />
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox
-                                            Checked="TinhTienCuaNhungDongDuocChon_Checked"
-                                            IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
-                                            Unchecked="TinhTienCuaNhungDongDuocChon_Checked" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn
+                            Width="0"
+                            DisplayMemberBinding="{Binding IdSP}"
+                            Header="Id đồ" />
+                        <GridViewColumn
+                            Width="130"
+                            DisplayMemberBinding="{Binding TenSP}"
+                            Header="Tên đồ" />
+                        <!--  Cột "Ảnh"  -->
+                        <GridViewColumn Width="100" Header="Ảnh">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding LinkAnhBia}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                            Width="90"
+                            DisplayMemberBinding="{Binding Gia}"
+                            Header="Giá" />
+                        <GridViewColumn
+                            Width="100"
+                            DisplayMemberBinding="{Binding PhiShip}"
+                            Header="Phí Ship" />
+                        <GridViewColumn
+                            Width="90"
+                            DisplayMemberBinding="{Binding SoLuongMua}"
+                            Header="Số lượng mua" />
+                        <GridViewColumn
+                            Width="88"
+                            DisplayMemberBinding="{Binding TrangThaiConHayHet}"
+                            Header="Trạng thái" />
 
-                            <GridViewColumn
-                                Width="0"
-                                DisplayMemberBinding="{Binding IdSP}"
-                                Header="Id đồ" />
-                            <GridViewColumn
-                                Width="130"
-                                DisplayMemberBinding="{Binding TenSP}"
-                                Header="Tên đồ" />
-                            <!--  Cột "Ảnh"  -->
-                            <GridViewColumn Width="100" Header="Ảnh">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding LinkAnhBia}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn
-                                Width="90"
-                                DisplayMemberBinding="{Binding Gia}"
-                                Header="Giá" />
-                            <GridViewColumn
-                                Width="100"
-                                DisplayMemberBinding="{Binding PhiShip}"
-                                Header="Phí Ship" />
-                            <GridViewColumn
-                                Width="90"
-                                DisplayMemberBinding="{Binding SoLuongMua}"
-                                Header="Số lượng mua" />
-                            <GridViewColumn
-                                Width="88"
-                                DisplayMemberBinding="{Binding TrangThaiConHayHet}"
-                                Header="Trạng thái" />
+                        <!--  Cột "Xóa"  -->
+                        <GridViewColumn Width="68" Header="Xóa">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Width="45"
+                                        Height="45"
+                                        Margin="8,0,0,0"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Background="#dd4131"
+                                        BorderBrush="White"
+                                        BorderThickness="1"
+                                        Click="btnXoaKhoiGioHang_Click"
+                                        ToolTip="Xóa">
+                                        <materialDesign:PackIcon
+                                            Width="15"
+                                            Height="15"
+                                            Foreground="White"
+                                            Kind="DeleteOutline" />
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                            <!--  Cột "Xóa"  -->
-                            <GridViewColumn Width="68" Header="Xóa">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button
-                                            Width="45"
-                                            Height="45"
-                                            Margin="8,0,0,0"
-                                            materialDesign:ButtonAssist.CornerRadius="10"
-                                            Background="#dd4131"
-                                            BorderBrush="White"
-                                            BorderThickness="1"
-                                            Click="btnXoaKhoiGioHang_Click"
-                                            ToolTip="Xóa">
-                                            <materialDesign:PackIcon
-                                                Width="15"
-                                                Height="15"
-                                                Foreground="White"
-                                                Kind="DeleteOutline" />
-                                        </Button>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
         </Border>
 
         <Grid Grid.Column="1" HorizontalAlignment="Center">
@@ -140,6 +143,11 @@
                 Background="#9359c5">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            x:Name="txbTienNguoiDung"
+                            Foreground="Transparent"
+                            IsEnabled="False"
+                            Visibility="Collapsed" />
                         <TextBlock
                             Margin="18,16,-18,0"
                             VerticalAlignment="Top"
@@ -185,10 +193,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <!--  Cái textbloc id ngày chủ yếu để xử lý truy vấn sql chứ k cần show  -->
-                        <TextBlock
-                            x:Name="txtbIdVoucher"
-                            Text="-1"
-                            Visibility="Collapsed" />
+                        <TextBlock x:Name="txtbIdVoucher" Visibility="Collapsed" />
                         <TextBlock
                             Margin="18,3,-18,0"
                             VerticalAlignment="Top"
@@ -241,12 +246,16 @@
                         x:Name="btnThanhToan"
                         Grid.Row="1"
                         Width="250"
-                        Height="35"
+                        Height="38"
                         Margin="0,20,0,0"
-                        Click="btnThanhToan_Click"
-                        Content="Thanh Toán"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        materialDesign:ButtonAssist.CornerRadius="7"
+                        BorderBrush="#FFFFEEFA"
+                        Click="btnThanhToan_Click">
+                        <TextBlock
+                            FontSize="17"
+                            FontWeight="SemiBold"
+                            Text="Thanh Toán " />
+                    </Button>
 
                 </StackPanel>
             </Grid>

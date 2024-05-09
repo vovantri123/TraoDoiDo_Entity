@@ -139,6 +139,10 @@ namespace TraoDoiDo.Views.Windows
             DiaChi f = new DiaChi(ngMua, dsSanPhamDeThanhToan);
             f.tongThanhToan = txtbTongThanhToan.Text;
             f.idVoucher = Convert.ToInt32(txtbIdVoucher.Text);
+            f.Closed += (s, ev) =>
+            {
+                GioHang_Load(sender, e);
+            };
             f.ShowDialog();
         }
 

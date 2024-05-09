@@ -59,9 +59,13 @@ namespace TraoDoiDo
          
         private void btnNhanVoucher_Click(object sender, RoutedEventArgs e)
         {
-            NguoiDungVoucher ndvc = new NguoiDungVoucher() { IdVoucher = Convert.ToInt32(txtbIdVoucher.Text), IdNguoiDung = idNguoiMua};
-            db.NguoiDungVoucher.Add(ndvc);
+            NguoiDungVoucher ndvcMoi = new NguoiDungVoucher() { IdVoucher = Convert.ToInt32(txtbIdVoucher.Text), IdNguoiDung = idNguoiMua};
+            NguoiDungVoucher ndvc = db.NguoiDungVoucher.Find(Convert.ToInt32(txtbIdVoucher.Text), idNguoiMua);
+            if(ndvc != null) 
+                db.NguoiDungVoucher.Remove(ndvc);
+            db.NguoiDungVoucher.Add(ndvcMoi);
             db.SaveChanges();
+            MessageBox.Show("Bạn đã nhận được voucher");
         } 
     }
 }

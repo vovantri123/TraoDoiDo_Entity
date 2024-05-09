@@ -268,7 +268,7 @@
                                     <TextBlock
                                         Margin="10"
                                         FontSize="15"
-                                        Text="Chúc bạn một ngày mới tràn đầy năng lượng và hạnh phúc!" />
+                                        Text="Chúc bạn ngày mới tràn đầy năng lượng và hạnh phúc!" />
                                 </Border>
                             </Popup>
                             <materialDesign:Chip
@@ -482,6 +482,7 @@
                         <!--  // Mua đồ //  -->
 
                         <ListViewItem
+                            x:Name="lviMuaDo"
                             HorizontalAlignment="Left"
                             MouseEnter="ListViewItem_MouseEnter"
                             MouseLeftButtonUp="MuaDo_Click">
@@ -519,6 +520,7 @@
                         <!--  // Đăng đồ //  -->
 
                         <ListViewItem
+                            x:Name="lviDangDo"
                             HorizontalAlignment="Left"
                             MouseEnter="ListViewItem_MouseEnter"
                             MouseLeftButtonUp="DangDo_Click">
@@ -556,6 +558,7 @@
                         <!--  // Ví tiền //  -->
 
                         <ListViewItem
+                            x:Name="lviViTien"
                             HorizontalAlignment="Left"
                             MouseEnter="ListViewItem_MouseEnter"
                             MouseLeftButtonUp="ViDienTu_Click">
@@ -593,6 +596,7 @@
                         <!--  // Thong tin ca nhan //  -->
 
                         <ListViewItem
+                            x:Name="lviThongTinCaNhan"
                             HorizontalAlignment="Left"
                             MouseEnter="ListViewItem_MouseEnter"
                             MouseLeftButtonUp="ThongTinCaNhan_Click">
@@ -631,6 +635,7 @@
 
                         <!--  // Quản lý // (Visibility="Collapsed" nếu không đăng nhập với vai trò admin)  -->
                         <ListViewItem
+                            x:Name="lviQuanLy"
                             HorizontalAlignment="Left"
                             MouseEnter="ListViewItem_MouseEnter"
                             MouseLeftButtonUp="QuanLy_Click">

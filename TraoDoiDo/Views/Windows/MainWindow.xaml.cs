@@ -36,6 +36,14 @@ namespace TraoDoiDo
             TrangChu_Click(Owner, new RoutedEventArgs());
             Loaded += mainWindow_Loaded;
             ucThanhDieuKhien.btn_close.Click += hienThiDangNhap;
+            if (nguoiDung.IdNguoiDung == 0)
+            {
+                lviMuaDo.Visibility = Visibility.Collapsed;
+                lviDangDo.Visibility = Visibility.Collapsed;
+                lviViTien.Visibility = Visibility.Collapsed;
+            }
+            else
+                lviQuanLy.Visibility = Visibility.Collapsed;
         }
 
 

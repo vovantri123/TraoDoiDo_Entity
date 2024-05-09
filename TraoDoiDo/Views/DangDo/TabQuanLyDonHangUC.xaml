@@ -17,8 +17,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid>
-
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -28,6 +27,7 @@
             </Grid.RowDefinitions>
             <Expander
                 Grid.Row="0"
+                MaxHeight="630"
                 Margin="10,5,10,5"
                 Background="#e3f2fd"
                 ExpandDirection="Down"
@@ -54,99 +54,98 @@
                         </materialDesign:Badged>
                     </StackPanel>
                 </Expander.Header>
-                <ScrollViewer
+
+                <ListView
+                    x:Name="lsvChoDongGoi"
                     HorizontalAlignment="Center"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto">
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">12</sys:Double>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn
+                                Width="45"
+                                DisplayMemberBinding="{Binding IdSP}"
+                                Header="Id đồ" />
+                            <GridViewColumn
+                                Width="0"
+                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                Header="Id người mua" />
+                            <GridViewColumn
+                                Width="130"
+                                DisplayMemberBinding="{Binding TenSP}"
+                                Header="Tên đồ" />
+                            <!--  Ảnh  -->
+                            <GridViewColumn Width="100" Header="Ảnh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding LinkAnhBia}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                Header="Số lượng" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding Gia}"
+                                Header="Giá" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding PhiShip}"
+                                Header="Phí ship" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TongTien}"
+                                Header="Tổng tiền" />
+                            <!--  Cột "Thông tin khách hàng"  -->
+                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            x:Name="btnDiaChiGuiHang"
+                                            BorderBrush="White"
+                                            BorderThickness="1"
+                                            Click="btnDiaChiGuiHang_Click"
+                                            Content="Xem địa chỉ" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                    <ListView x:Name="lsvChoDongGoi">
-                        <ListView.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
-                        </ListView.Resources>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridView.ColumnHeaderContainerStyle>
-                                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </Style>
-                                </GridView.ColumnHeaderContainerStyle>
-                                <GridViewColumn
-                                    Width="45"
-                                    DisplayMemberBinding="{Binding IdSP}"
-                                    Header="Id đồ" />
-                                <GridViewColumn
-                                    Width="0"
-                                    DisplayMemberBinding="{Binding IdNguoiMua}"
-                                    Header="Id người mua" />
-                                <GridViewColumn
-                                    Width="130"
-                                    DisplayMemberBinding="{Binding TenSP}"
-                                    Header="Tên đồ" />
-                                <!--  Ảnh  -->
-                                <GridViewColumn Width="100" Header="Ảnh">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding LinkAnhBia}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn
-                                    Width="100"
-                                    DisplayMemberBinding="{Binding SoLuongMua}"
-                                    Header="Số lượng" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding Gia}"
-                                    Header="Giá" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding PhiShip}"
-                                    Header="Phí ship" />
-                                <GridViewColumn
-                                    Width="120"
-                                    DisplayMemberBinding="{Binding TongTien}"
-                                    Header="Tổng tiền" />
-                                <!--  Cột "Thông tin khách hàng"  -->
-                                <GridViewColumn Width="130" Header="Thông tin khách hàng">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                x:Name="btnDiaChiGuiHang"
-                                                BorderBrush="White"
-                                                BorderThickness="1"
-                                                Click="btnDiaChiGuiHang_Click"
-                                                Content="Xem địa chỉ" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                            <GridViewColumn Width="125" Header="Gửi hàng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            BorderBrush="White"
+                                            BorderThickness="1"
+                                            Click="btnGuiHang_Click"
+                                            Content="Gửi" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                                <GridViewColumn Width="125" Header="Gửi hàng">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                BorderBrush="White"
-                                                BorderThickness="1"
-                                                Click="btnGuiHang_Click"
-                                                Content="Gửi" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
             </Expander>
             <Expander
                 Grid.Row="1"
+                MaxHeight="630"
                 Margin="10,5,10,5"
                 Background="LightGreen"
                 ExpandDirection="Down"
@@ -173,85 +172,85 @@
                         </materialDesign:Badged>
                     </StackPanel>
                 </Expander.Header>
-                <ScrollViewer
-                    Grid.Row="1"
+
+
+                <ListView
+                    x:Name="lsvDangGiao"
                     HorizontalAlignment="Center"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto">
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">12</sys:Double>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn
+                                Width="45"
+                                DisplayMemberBinding="{Binding IdSP}"
+                                Header="Id đồ" />
+                            <GridViewColumn
+                                Width="0"
+                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                Header="Id người mua" />
+                            <GridViewColumn
+                                Width="130"
+                                DisplayMemberBinding="{Binding TenSP}"
+                                Header="Tên đồ" />
+                            <!--  Ảnh  -->
+                            <GridViewColumn Width="100" Header="Ảnh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding LinkAnhBia}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                Header="Số lượng" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding Gia}"
+                                Header="Giá" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding PhiShip}"
+                                Header="Phí ship" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TongTien}"
+                                Header="Tổng tiền" />
+                            <!--  Cột "Thông tin khách hàng"  -->
+                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            x:Name="btnDiaChiGuiHang"
+                                            Click="btnDiaChiGuiHang_Click"
+                                            Content="Xem địa chỉ" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                    <ListView x:Name="lsvDangGiao">
-                        <ListView.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
-                        </ListView.Resources>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridView.ColumnHeaderContainerStyle>
-                                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </Style>
-                                </GridView.ColumnHeaderContainerStyle>
-                                <GridViewColumn
-                                    Width="45"
-                                    DisplayMemberBinding="{Binding IdSP}"
-                                    Header="Id đồ" />
-                                <GridViewColumn
-                                    Width="0"
-                                    DisplayMemberBinding="{Binding IdNguoiMua}"
-                                    Header="Id người mua" />
-                                <GridViewColumn
-                                    Width="130"
-                                    DisplayMemberBinding="{Binding TenSP}"
-                                    Header="Tên đồ" />
-                                <!--  Ảnh  -->
-                                <GridViewColumn Width="100" Header="Ảnh">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding LinkAnhBia}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn
-                                    Width="100"
-                                    DisplayMemberBinding="{Binding SoLuongMua}"
-                                    Header="Số lượng" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding Gia}"
-                                    Header="Giá" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding PhiShip}"
-                                    Header="Phí ship" />
-                                <GridViewColumn
-                                    Width="120"
-                                    DisplayMemberBinding="{Binding TongTien}"
-                                    Header="Tổng tiền" />
-                                <!--  Cột "Thông tin khách hàng"  -->
-                                <GridViewColumn Width="130" Header="Thông tin khách hàng">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                x:Name="btnDiaChiGuiHang"
-                                                Click="btnDiaChiGuiHang_Click"
-                                                Content="Xem địa chỉ" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
             </Expander>
             <Expander
                 Grid.Row="2"
+                MaxHeight="630"
                 Margin="10,5,10,5"
                 Background="LightPink"
                 ExpandDirection="Down"
@@ -278,85 +277,85 @@
                         </materialDesign:Badged>
                     </StackPanel>
                 </Expander.Header>
-                <ScrollViewer
-                    Grid.Row="1"
+
+
+                <ListView
+                    x:Name="lsvDaGiao"
                     HorizontalAlignment="Center"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto">
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">12</sys:Double>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn
+                                Width="45"
+                                DisplayMemberBinding="{Binding IdSP}"
+                                Header="Id đồ" />
+                            <GridViewColumn
+                                Width="0"
+                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                Header="Id người mua" />
+                            <GridViewColumn
+                                Width="130"
+                                DisplayMemberBinding="{Binding TenSP}"
+                                Header="Tên đồ" />
+                            <!--  Ảnh  -->
+                            <GridViewColumn Width="100" Header="Ảnh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding LinkAnhBia}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                Header="Số lượng" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding Gia}"
+                                Header="Giá" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding PhiShip}"
+                                Header="Phí ship" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TongTien}"
+                                Header="Tổng tiền" />
+                            <!--  Cột "Thông tin khách hàng"  -->
+                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            x:Name="btnDiaChiGuiHang"
+                                            Click="btnDiaChiGuiHang_Click"
+                                            Content="Xem địa chỉ" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                    <ListView x:Name="lsvDaGiao">
-                        <ListView.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
-                        </ListView.Resources>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridView.ColumnHeaderContainerStyle>
-                                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </Style>
-                                </GridView.ColumnHeaderContainerStyle>
-                                <GridViewColumn
-                                    Width="45"
-                                    DisplayMemberBinding="{Binding IdSP}"
-                                    Header="Id đồ" />
-                                <GridViewColumn
-                                    Width="0"
-                                    DisplayMemberBinding="{Binding IdNguoiMua}"
-                                    Header="Id người mua" />
-                                <GridViewColumn
-                                    Width="130"
-                                    DisplayMemberBinding="{Binding TenSP}"
-                                    Header="Tên đồ" />
-                                <!--  Ảnh  -->
-                                <GridViewColumn Width="100" Header="Ảnh">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding LinkAnhBia}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn
-                                    Width="100"
-                                    DisplayMemberBinding="{Binding SoLuongMua}"
-                                    Header="Số lượng" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding Gia}"
-                                    Header="Giá" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding PhiShip}"
-                                    Header="Phí ship" />
-                                <GridViewColumn
-                                    Width="120"
-                                    DisplayMemberBinding="{Binding TongTien}"
-                                    Header="Tổng tiền" />
-                                <!--  Cột "Thông tin khách hàng"  -->
-                                <GridViewColumn Width="130" Header="Thông tin khách hàng">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                x:Name="btnDiaChiGuiHang"
-                                                Click="btnDiaChiGuiHang_Click"
-                                                Content="Xem địa chỉ" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
             </Expander>
             <Expander
                 Grid.Row="3"
+                MaxHeight="630"
                 Margin="10,5,10,5"
                 Background="#FFFFD060"
                 ExpandDirection="Down"
@@ -383,91 +382,86 @@
                         </materialDesign:Badged>
                     </StackPanel>
                 </Expander.Header>
-                <ScrollViewer
-                    Grid.Row="1"
+
+
+                <ListView
+                    x:Name="lsvDonHangBiHoanTra"
                     HorizontalAlignment="Center"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto">
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">12</sys:Double>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn
+                                Width="45"
+                                DisplayMemberBinding="{Binding IdSP}"
+                                Header="Id đồ" />
+                            <GridViewColumn
+                                Width="0"
+                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                Header="Id người mua" />
+                            <GridViewColumn
+                                Width="130"
+                                DisplayMemberBinding="{Binding TenSP}"
+                                Header="Tên đồ" />
+                            <!--  Ảnh  -->
+                            <GridViewColumn Width="100" Header="Ảnh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding LinkAnhBia}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                Header="Số lượng" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding Gia}"
+                                Header="Giá" />
+                            <GridViewColumn
+                                Width="90"
+                                DisplayMemberBinding="{Binding PhiShip}"
+                                Header="Phí ship" />
+                            <GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TongTien}"
+                                Header="Tổng tiền" />
+                            <!--  Cột "Thông tin khách hàng"  -->
+                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            x:Name="btnDiaChiGuiHang"
+                                            Click="btnDiaChiGuiHang_Click"
+                                            Content="Xem địa chỉ" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
+                                Width="125"
+                                DisplayMemberBinding="{Binding LyDoTraHang}"
+                                Header="Lý do trả hàng" />
 
-                    <ListView x:Name="lsvDonHangBiHoanTra">
-                        <ListView.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
-                        </ListView.Resources>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridView.ColumnHeaderContainerStyle>
-                                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </Style>
-                                </GridView.ColumnHeaderContainerStyle>
-                                <GridViewColumn
-                                    Width="45"
-                                    DisplayMemberBinding="{Binding IdSP}"
-                                    Header="Id đồ" />
-                                <GridViewColumn
-                                    Width="0"
-                                    DisplayMemberBinding="{Binding IdNguoiMua}"
-                                    Header="Id người mua" />
-                                <GridViewColumn
-                                    Width="130"
-                                    DisplayMemberBinding="{Binding TenSP}"
-                                    Header="Tên đồ" />
-                                <!--  Ảnh  -->
-                                <GridViewColumn Width="100" Header="Ảnh">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding LinkAnhBia}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn
-                                    Width="100"
-                                    DisplayMemberBinding="{Binding SoLuongMua}"
-                                    Header="Số lượng" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding Gia}"
-                                    Header="Giá" />
-                                <GridViewColumn
-                                    Width="90"
-                                    DisplayMemberBinding="{Binding PhiShip}"
-                                    Header="Phí ship" />
-                                <GridViewColumn
-                                    Width="120"
-                                    DisplayMemberBinding="{Binding TongTien}"
-                                    Header="Tổng tiền" />
-                                <!--  Cột "Thông tin khách hàng"  -->
-                                <GridViewColumn Width="130" Header="Thông tin khách hàng">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                x:Name="btnDiaChiGuiHang"
-                                                Click="btnDiaChiGuiHang_Click"
-                                                Content="Xem địa chỉ" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn
-                                    Width="125"
-                                    DisplayMemberBinding="{Binding LyDoTraHang}"
-                                    Header="Lý do trả hàng" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
             </Expander>
         </Grid>
-
-    </Grid>
-
-
-
+    </ScrollViewer>
 </UserControl>

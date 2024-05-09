@@ -107,11 +107,17 @@ namespace TraoDoiDo
                 nguoi.TienNguoiDung = tienTT.ToString();
                 MessageBox.Show("Thanh toán thành công");
             }
-            db.SaveChanges(); 
+            db.SaveChanges();
+            this.Close();
         }
-        private void capNhatThongTinCaNhan() // ???????????, không biết sửa sao luôn, tại chưa coi mấy cái model check này
+        private void capNhatThongTinCaNhan() 
         {
-
+            var nguoi = db.NguoiDung.Find(ngDung.IdNguoiDung);
+            nguoi.HoTenNguoiDung = txtHoTen.Text;
+            nguoi.SdtNguoiDung = txtSoDienThoai.Text;
+            nguoi.EmailNguoiDung = txtEmail.Text;
+            nguoi.DiaChiNguoiDung = txtDiaChi.Text;
+            db.SaveChanges();
         }
 
         private void FDiaChi_Loaded(object sender, RoutedEventArgs e)

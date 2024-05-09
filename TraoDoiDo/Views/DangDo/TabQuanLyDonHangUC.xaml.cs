@@ -124,8 +124,6 @@ namespace TraoDoiDo.Views.DangDo
             {
                 try
                 {
-                    //QuanLyDonHang quanLy = new QuanLyDonHang(null, null, duLieuCuaDongChuaButton.IdNguoiMua, duLieuCuaDongChuaButton.IdSP, "Đang giao", null);
-                    //quanLyDonHangDao.CapNhat(quanLy);
                     int idNguoiMua = Convert.ToInt32(duLieuCuaDongChuaButton.IdNguoiMua);
                     int idSP = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
                     QuanLyDonHang quanLy = (from qldh in db.QuanLyDonHang

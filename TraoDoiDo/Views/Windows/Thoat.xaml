@@ -10,6 +10,7 @@
     Height="360"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    KeyDown="btnCo_KeyDown"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -105,8 +106,8 @@
                 <Button
                     x:Name="btnKhong"
                     Width="100"
-                    Click="btnKhong_Click"
                     Margin="0,0,60,20"
+                    Click="btnKhong_Click"
                     Content="Không">
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">

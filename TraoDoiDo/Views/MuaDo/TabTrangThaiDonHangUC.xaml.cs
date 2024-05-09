@@ -23,7 +23,7 @@ namespace TraoDoiDo.Views.MuaDo
     public partial class TabTrangThaiDonHangUC : UserControl
     {
         private int soLuongSP = 0;
-        private SanPhamUC[] DanhSachSanPham = new SanPhamUC[100];
+        private SanPhamUC[] DanhSachSanPham = new SanPhamUC[150];
         List<TrangThaiDonHang> dsSanPhamDeThanhToan = new List<TrangThaiDonHang>();
 
         NguoiDung ngMua;

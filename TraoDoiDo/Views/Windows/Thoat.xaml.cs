@@ -37,5 +37,13 @@ namespace TraoDoiDo
         {
             this.Close();
         }
+
+        private void btnCo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnCo_Click(sender, e);
+            }
+        }
     }
 }

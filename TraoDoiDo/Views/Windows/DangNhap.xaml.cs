@@ -63,5 +63,13 @@ namespace TraoDoiDo
             QuenMatKhau quenMK = new QuenMatKhau();
             quenMK.ShowDialog();
         }
+
+        private void btnDangNhap_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnDangNhap_Click(sender, e);
+            }
+        }
     }
 }

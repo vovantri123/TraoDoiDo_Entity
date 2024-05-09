@@ -11,6 +11,7 @@
     Height="440"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    KeyDown="btnDangNhap_KeyDown"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -50,12 +51,12 @@
 
             <Grid Grid.Column="0">
                 <materialDesign:Card
-                    Grid.Row="0"
                     Width="345"
                     Height="222"
                     Margin="10"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    UniformCornerRadius="10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -112,11 +113,10 @@
                                 Margin="5,0,5,0"
                                 Panel.ZIndex="1"
                                 materialDesign:HintAssist.Foreground="#673ab7"
-                                materialDesign:HintAssist.HelperText="Nhập ít nhất 8 ký tự"
                                 materialDesign:HintAssist.Hint="Mật khẩu"
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 materialDesign:TextFieldAssist.UnderlineBrush="#673ab7"
-                                Password="1234"
+                                Password="12341234"
                                 Style="{StaticResource MaterialDesignFilledRevealPasswordBox}" />
                         </Grid>
 
@@ -124,9 +124,8 @@
                         <Grid Grid.Row="2" Margin="0,0,0,0">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="155*" />
-                                <ColumnDefinition Width="98*" />
-                                <ColumnDefinition Width="57*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock
                                 x:Name="txtQuenMatKhau"
@@ -135,25 +134,27 @@
                                 Margin="44,-11,41,64"
                                 Panel.ZIndex="1"
                                 Cursor="Hand"
-                                FontSize="12"
-                                Foreground="#FF9A9A9A"
+                                FontSize="13"
+                                Foreground="#FF828080"
                                 MouseLeftButtonDown="txtbQuenMatKhau_Click"
                                 Text="Quên mật khẩu?" />
                             <Button
                                 x:Name="btnDangNhap"
                                 Grid.Column="0"
-                                Height="32"
-                                Margin="20,20,20,21"
+                                Width="140"
+                                Height="35"
                                 materialDesign:ButtonAssist.CornerRadius="10"
+                                BorderBrush="#FFFFEEFA"
                                 Click="btnDangNhap_Click"
                                 Content="Đăng nhập" />
                             <Button
                                 x:Name="btnDangKy"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
-                                Height="32"
-                                Margin="20,20,20,21"
+                                Width="140"
+                                Height="35"
                                 materialDesign:ButtonAssist.CornerRadius="10"
+                                BorderBrush="#FFFFEEFA"
                                 Click="btnDangKy_Click"
                                 Content="Đăng ký" />
                         </Grid>

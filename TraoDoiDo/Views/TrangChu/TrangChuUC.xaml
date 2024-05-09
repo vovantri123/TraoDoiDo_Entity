@@ -38,9 +38,6 @@
                         Margin="10,0,0,0"
                         HorizontalAlignment="Left"
                         Panel.ZIndex="1"
-                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                        materialDesign:ButtonProgressAssist.Value="-1"
                         Click="PreviousButton_Click"
                         Content="&lt;"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
@@ -57,9 +54,6 @@
                         Margin="0,0,10,0"
                         HorizontalAlignment="Right"
                         Panel.ZIndex="1"
-                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                        materialDesign:ButtonProgressAssist.Value="-1"
                         Click="NextButton_Click"
                         Content="&gt;"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
@@ -122,67 +116,6 @@
                         <!--  Các phần tử bên trong WrapPanel  -->
                     </StackPanel>
                 </GroupBox>
-
-                <!--<materialDesign:Card
-                    Margin="20,10"
-                    Padding="5"
-                    HorizontalAlignment="Center"
-                    UniformCornerRadius="20">
-                    <WrapPanel Margin="10">
-                        <materialDesign:PackIcon
-                            Width="30"
-                            Height="30"
-                            Margin="10,0"
-                            VerticalAlignment="Center"
-                            Foreground="#FFC83D"
-                            Kind="HandPeace" />
-                        <TextBlock Margin="10,0" VerticalAlignment="Center">
-                            <TextBlock.Inlines>
-                                <Run Text="Say Hi to" />
-                                <Run
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    Text="Laith Hart" />
-                            </TextBlock.Inlines>
-                        </TextBlock>
-                        <Image
-                            x:Name="avatar1"
-                            Width="40"
-                            Height="40"
-                            Margin="10,0"
-                            Source="HinhCuaToi/avatar1.jpg" />
-                    </WrapPanel>
-                </materialDesign:Card>
-                <materialDesign:Card
-                    Margin="20,10"
-                    Padding="5"
-                    HorizontalAlignment="Center"
-                    UniformCornerRadius="20">
-                    <WrapPanel Margin="10">
-                        <materialDesign:PackIcon
-                            Width="30"
-                            Height="30"
-                            Margin="10,0"
-                            VerticalAlignment="Center"
-                            Foreground="#FFC83D"
-                            Kind="HandPeace" />
-                        <TextBlock Margin="10,0" VerticalAlignment="Center">
-                            <TextBlock.Inlines>
-                                <Run Text="Say Hi to" />
-                                <Run
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    Text="Laith Hart" />
-                            </TextBlock.Inlines>
-                        </TextBlock>
-                        <Image
-                            x:Name="avatar2"
-                            Width="40"
-                            Height="40"
-                            Margin="10,0"
-                            Source="HinhCuaToi/avatar1.jpg" />
-                    </WrapPanel>
-                </materialDesign:Card>-->
             </StackPanel>
         </Grid>
 
