@@ -47,11 +47,12 @@ namespace TraoDoiDo.Views.MuaDo
             SapXepTheoGanDay();
         }
 
-        private void LoadDanhSachSanPham() //Load dữ liệu lên cái mảng DangSachSanPham
+        private void LoadDanhSachSanPham()
         {
             soLuongSP = 0;
             try
             {
+                //Load danh sách sản phẩm khi mua hàng
                 var dsSanPham = from sp in db.SanPham
                                 join nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
                                 join dmyt in db.DanhMucYeuThich
@@ -139,48 +140,35 @@ namespace TraoDoiDo.Views.MuaDo
             sp2 = spTam;
         }
 
-        private void SapXepTheoGiaTangDan()
+        private void SapXepSanPham(Func<SanPhamUC, SanPhamUC, bool> dieuKienSoSanh)
         {
             wpnlHienThi.Children.Clear();
             for (int i = 0; i < soLuongSP - 1; i++)
                 for (int j = i + 1; j < soLuongSP; j++)
-                    if (Convert.ToInt32(DanhSachSanPham[i].txtbGiaBan.Text.Replace(",", "")) > Convert.ToInt32(DanhSachSanPham[j].txtbGiaBan.Text.Replace(",", "")))
+                    if (dieuKienSoSanh(DanhSachSanPham[i], DanhSachSanPham[j]))
                         HoanDoi(ref DanhSachSanPham[i], ref DanhSachSanPham[j]);
-
             LoadToanBoDanhSachSanPhamLenWpnlHienThi();
+        }
+
+        // Sử dụng phương thức SapXepSanPham với các biểu thức lambda để xác định tiêu chí sắp xếp 
+        private void SapXepTheoGiaTangDan()
+        {
+            SapXepSanPham((sp1, sp2) => Convert.ToInt32(sp1.txtbGiaBan.Text.Replace(",", "")) > Convert.ToInt32(sp2.txtbGiaBan.Text.Replace(",", "")));
         }
 
         private void SapXepTheoGiaGiamDan()
         {
-            wpnlHienThi.Children.Clear();
-            for (int i = 0; i < soLuongSP - 1; i++)
-                for (int j = i + 1; j < soLuongSP; j++)
-                    if (Convert.ToInt32(DanhSachSanPham[i].txtbGiaBan.Text.Replace(",", "")) < Convert.ToInt32(DanhSachSanPham[j].txtbGiaBan.Text.Replace(",", "")))
-                        HoanDoi(ref DanhSachSanPham[i], ref DanhSachSanPham[j]);
-
-            LoadToanBoDanhSachSanPhamLenWpnlHienThi();
+            SapXepSanPham((sp1, sp2) => Convert.ToInt32(sp1.txtbGiaBan.Text.Replace(",", "")) < Convert.ToInt32(sp2.txtbGiaBan.Text.Replace(",", "")));
         }
 
         private void SapXepGiamDanTheoSoLuotXem()
         {
-            wpnlHienThi.Children.Clear();
-            for (int i = 0; i < soLuongSP - 1; i++)
-                for (int j = i + 1; j < soLuongSP; j++)
-                    if (Convert.ToInt32(DanhSachSanPham[i].txtbSoLuotXem.Text) < Convert.ToInt32(DanhSachSanPham[j].txtbSoLuotXem.Text))
-                        HoanDoi(ref DanhSachSanPham[i], ref DanhSachSanPham[j]);
-
-            LoadToanBoDanhSachSanPhamLenWpnlHienThi();
+            SapXepSanPham((sp1, sp2) => Convert.ToInt32(sp1.txtbSoLuotXem.Text) < Convert.ToInt32(sp2.txtbSoLuotXem.Text));
         }
 
         private void SapXepTangDanTheoSoLuotXem()
         {
-            wpnlHienThi.Children.Clear();
-            for (int i = 0; i < soLuongSP - 1; i++)
-                for (int j = i + 1; j < soLuongSP; j++)
-                    if (Convert.ToInt32(DanhSachSanPham[i].txtbSoLuotXem.Text) > Convert.ToInt32(DanhSachSanPham[j].txtbSoLuotXem.Text))
-                        HoanDoi(ref DanhSachSanPham[i], ref DanhSachSanPham[j]);
-
-            LoadToanBoDanhSachSanPhamLenWpnlHienThi();
+            SapXepSanPham((sp1, sp2) => Convert.ToInt32(sp1.txtbSoLuotXem.Text) > Convert.ToInt32(sp2.txtbSoLuotXem.Text));
         }
 
         private void SapXeoTheoYeuThich()
@@ -197,6 +185,7 @@ namespace TraoDoiDo.Views.MuaDo
         private void SapXepTheoGanDay()
         { 
             wpnlHienThi.Children.Clear();
+            // Ưu tiên hiển thị sản phẩm nào tìm kiếm gần đây
             var tuKhoaSanPhamDangQuanTam = (from ng in db.NguoiDung
                                             where ng.IdNguoiDung == ngMua.IdNguoiDung
                                             select ng.TuKhoaSanPhamDangQuanTam).FirstOrDefault();

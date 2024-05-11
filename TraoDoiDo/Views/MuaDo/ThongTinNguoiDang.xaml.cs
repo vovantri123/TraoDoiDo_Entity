@@ -41,6 +41,7 @@ namespace TraoDoiDo
 
         private void LoadThongTinNguoiDang(int idNguoiDang)
         { 
+            // Load thông tin người đăng
             var nguoiDang = (from dgnd in db.DanhGiaNguoiDang
                              join nd in db.NguoiDung on dgnd.IdNguoiDang equals nd.IdNguoiDung
                              where dgnd.IdNguoiDang == idNguoiDang
@@ -57,6 +58,7 @@ namespace TraoDoiDo
 
         private void LoadDSDanhGia(int idNguoiDang)
         {
+            // Load danh sách đánh giá dành cho người đăng
             var dsDanhGia = (from dgnd in db.DanhGiaNguoiDang
                              join nd in db.NguoiDung on dgnd.IdNguoiMua equals nd.IdNguoiDung
                              where dgnd.IdNguoiDang == idNguoiDang

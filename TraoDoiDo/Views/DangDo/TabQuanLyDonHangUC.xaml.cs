@@ -53,6 +53,7 @@ namespace TraoDoiDo.Views.DangDo
         }
         private void LoadLsvTrongTabQuanLyDonHang(string tenLsv, string trangthai)
         {
+            //Load danh sách đơn hàng
             var dsDonHang = (from qldh in db.QuanLyDonHang
                              join nd in db.NguoiDung on qldh.IdNguoiMua equals nd.IdNguoiDung
                              join sp in db.SanPham on qldh.IdSanPham equals sp.IdSanPham
@@ -102,6 +103,7 @@ namespace TraoDoiDo.Views.DangDo
             {
                 int idNguoiMua = Convert.ToInt32(duLieuCuaDongChuaButton.IdNguoiMua);
                 int idSP = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
+                // Load dữ liệu người mua 
                 NguoiDung nguoi = (from ttdh in db.TrangThaiDonHang
                                    join nd in db.NguoiDung on ttdh.IdNguoiMua equals nd.IdNguoiDung
                                    where ttdh.IdNguoiMua == idNguoiMua  && ttdh.IdSanPham == idSP
@@ -126,6 +128,7 @@ namespace TraoDoiDo.Views.DangDo
                 {
                     int idNguoiMua = Convert.ToInt32(duLieuCuaDongChuaButton.IdNguoiMua);
                     int idSP = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
+                    //Cập nhật trạng thái đơn hàng ở hai bảng là QuanLyDonHang và TrangThaiDonHang
                     QuanLyDonHang quanLy = (from qldh in db.QuanLyDonHang
                                             where qldh.IdNguoiMua == idNguoiMua && qldh.IdSanPham == idSP
                                             select qldh).FirstOrDefault();

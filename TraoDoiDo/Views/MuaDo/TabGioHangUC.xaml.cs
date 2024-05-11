@@ -50,6 +50,7 @@ namespace TraoDoiDo.Views.Windows
 
         private void LsvGioHang_Load(object sender, RoutedEventArgs e)
         { 
+            // Load danh sách các sản phẩm trong giỏ hàng
             var dsGioHang = (from gh in db.GioHang
                              join nd in db.NguoiDung on gh.IdNguoiMua equals nd.IdNguoiDung
                              join sp in db.SanPham on gh.IdSanPham equals sp.IdSanPham
@@ -82,6 +83,7 @@ namespace TraoDoiDo.Views.Windows
         private void LoadVoucherCuaToi(object sender, RoutedEventArgs e)
         {
             spnlVoucherCuaToi.Children.Clear();
+            // Load danh sách voucher của người mua 
             var dsVoucher = (from vc in db.Voucher
                              join ndvc in db.NguoiDungVoucher on vc.IdVoucher equals ndvc.IdVoucher
                              where ndvc.IdNguoiDung == ngMua.IdNguoiDung
@@ -105,12 +107,10 @@ namespace TraoDoiDo.Views.Windows
         }
 
         private void vcUC_TextBlockChanged(object sender, VoucherUC.TextBlockChangedEventArgs e) //Cho phep voucherUC có thể thay đổi textBlock của cha và gọi hàm của cha
-        {
-            // Cập nhật TextBlock trên form cha
+        { 
             txtbgiaTriVoucher.Text = e.GiaTriMoi;
             txtbIdVoucher.Text = e.IdMoi;
-
-            // Gọi hàm của form cha
+             
             TinhTien();
         }
          
@@ -123,6 +123,7 @@ namespace TraoDoiDo.Views.Windows
             if (duLieuCuaDongChuaButton != null && MessageBox.Show("Bạn có chắc chắn muốn xóa mục đã chọn?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 try
                 { 
+                    //Xóa sản phẩm khỏi giỏ hàng
                     GioHang gioHang = db.GioHang.Find(duLieuCuaDongChuaButton.IdSP, ngMua.IdNguoiDung);
                     db.GioHang.Remove(gioHang);
                     db.SaveChanges();
@@ -138,7 +139,8 @@ namespace TraoDoiDo.Views.Windows
         {
             DiaChi f = new DiaChi(ngMua, dsSanPhamDeThanhToan);
             f.tongThanhToan = txtbTongThanhToan.Text;
-            f.idVoucher = Convert.ToInt32(txtbIdVoucher.Text);
+            if(!string.IsNullOrEmpty(txtbIdVoucher.Text))
+                f.idVoucher = Convert.ToInt32(txtbIdVoucher.Text);
             f.Closed += (s, ev) =>
             {
                 GioHang_Load(sender, e);
@@ -148,10 +150,8 @@ namespace TraoDoiDo.Views.Windows
 
         private void ChonTatCaCacDong_Checked(object sender, RoutedEventArgs e)
         { 
-            // Kiểm tra xem checkBox tổng đã được chọn hay không
             if (sender is CheckBox checkBoxTong && checkBoxTong.IsChecked.HasValue)
             {
-                // Lặp qua mỗi dong trong ListView để đặt trạng thái thành đã chọn
                 foreach (var dong in lsvGioHang.Items)
                 { 
                     ListViewItem duLieuCuaDong = lsvGioHang.ItemContainerGenerator.ContainerFromItem(dong) as ListViewItem;
@@ -160,7 +160,6 @@ namespace TraoDoiDo.Views.Windows
                         CheckBox checkBoxCuaDong = HoTroTimPhanTu.FindVisualChild<CheckBox>(duLieuCuaDong);
                         if (checkBoxCuaDong != null)
                         {
-                            // Đặt trạng thái của CheckBox theo trạng thái của CheckBox chọn tất cả
                             checkBoxCuaDong.IsChecked = checkBoxTong.IsChecked;
                         }
                     }
@@ -179,6 +178,7 @@ namespace TraoDoiDo.Views.Windows
             double tongTienHang = 0;
             double tongTienShip = 0;
             double tongThanhToan = 0;
+            dsSanPhamDeThanhToan.Clear();
             foreach (var dongDuocChon in lsvGioHang.SelectedItems)
             {
                 dynamic dong = dongDuocChon;
@@ -200,10 +200,9 @@ namespace TraoDoiDo.Views.Windows
 
                 tongThanhToan = tongTienHang + tongTienShip - Convert.ToDouble(txtbgiaTriVoucher.Text.Replace(",", ""));
 
-
-               dsSanPhamDeThanhToan.Add(new TrangThaiDonHang() {IdNguoiMua = ngMua.IdNguoiDung, IdSanPham = Convert.ToInt32(idSP), SoLuongMua = soLuongMua, TongThanhToan = tongThanhToan.ToString(), Ngay = ngayThanhToan,TrangThai = trangThai});
-            }
-
+                
+                dsSanPhamDeThanhToan.Add(new TrangThaiDonHang() {IdNguoiMua = ngMua.IdNguoiDung, IdSanPham = Convert.ToInt32(idSP), SoLuongMua = soLuongMua, TongThanhToan = tongThanhToan.ToString(), Ngay = ngayThanhToan,TrangThai = trangThai});
+            } 
             txtbTongTienHang.Text = Convert.ToDecimal(tongTienHang).ToString("#,##0");
             txtbTongTienShip.Text = Convert.ToDecimal(tongTienShip).ToString("#,##0");
             txtbTongThanhToan.Text = Convert.ToDecimal(tongThanhToan).ToString("#,##0");

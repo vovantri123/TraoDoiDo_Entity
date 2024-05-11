@@ -58,6 +58,7 @@ namespace TraoDoiDo
         private void UcViDienTU_Loaded(object sender, RoutedEventArgs e)
         {
             HienThi_GiaoDich();
+            // Load tiền của người dùng
             string t = (from nd in db.NguoiDung
                         where nd.IdNguoiDung == nguoiDung.IdNguoiDung
                         select nd.TienNguoiDung).FirstOrDefault();
@@ -67,6 +68,7 @@ namespace TraoDoiDo
 
         private void HienThi_GiaoDich()
         {
+            // Load danh sách giao dịch
             var dsGiaoDich = (from gd in db.GiaoDich
                               where gd.IdNguoiDung == nguoiDung.IdNguoiDung
                               select gd).ToList();

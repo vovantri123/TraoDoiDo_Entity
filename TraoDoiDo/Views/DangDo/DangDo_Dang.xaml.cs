@@ -46,6 +46,7 @@ namespace TraoDoiDo
             string ngayHienTai = DateTime.Today.ToShortDateString();
             string ngayMua = ucThongTin.dtpNgayMua.Text;
 
+            // Tạo sản phẩm mới
             sanPhamMoi = new SanPham()
             {
                 IdSanPham = Convert.ToInt32(ucThongTin.txtbIdSanPham.Text),
@@ -78,7 +79,7 @@ namespace TraoDoiDo
                     int idAnhMinhHoa = (i + 1);
                     string tenFileAnh = DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text;
                     string moTa = DanhSachAnhVaMoTa[i].txtbMoTa.Text;
-                    //MoTaAnhSanPham mta = new MoTaAnhSanPham(id, idAnhMinhHoa, tenFileAnh, moTa);
+                    //Thêm mô tả và ảnh 
                     MoTaAnhSanPham mta = new MoTaAnhSanPham() {IdSanPham = idsp, IdAnhMinhHoa = idAnhMinhHoa, LinkAnhMinhHoa = tenFileAnh, MoTa = moTa}; 
                     db.MoTaAnhSanPham.Add(mta);
                     db.SaveChanges();
@@ -91,15 +92,13 @@ namespace TraoDoiDo
 
         private void btnDang_Click(object sender, RoutedEventArgs e)
         { 
-            themThongTinVaoCSDL();
-            // bool check = sp.kiemTraCacTextBox();
-            //if (check)
-            {
-                db.SanPham.Add(sanPhamMoi);
-                db.SaveChanges();
-                themAnhVaMoTaVaoCSDL();
-                MessageBox.Show("Đăng đồ thành công");
-            }
+            // Thêm sanPhamMoi vào CSDL
+            themThongTinVaoCSDL(); 
+            db.SanPham.Add(sanPhamMoi);
+            db.SaveChanges();
+
+            themAnhVaMoTaVaoCSDL();
+            MessageBox.Show("Đăng đồ thành công"); 
         }
 
         private void btnThemAnh_Click(object sender, RoutedEventArgs e)

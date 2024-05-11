@@ -47,6 +47,7 @@ namespace TraoDoiDo
 
         private void btnCapNhat_Click(object sender, RoutedEventArgs e)
         {
+            // Cập nhật thông tin người dùng
             TaiKhoan taiKhoanMoi = new TaiKhoan() { TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password, IdNguoiDung = nguoi.IdNguoiDung };
 
             string tenAnh = XuLyAnh.layDuongDanDayDuToiFileAnhDaiDien(imageHinhDaiDien.Source.ToString());
@@ -56,25 +57,21 @@ namespace TraoDoiDo
                            select nd.TienNguoiDung).FirstOrDefault();
 
             NguoiDung nguoiMoi = new NguoiDung() { IdNguoiDung = nguoi.IdNguoiDung, HoTenNguoiDung = txtHoTen.Text, GioiTinhNguoiDung = cbGioiTinh.Text, NgaySinhNguoiDung = dtpNgaySinh.Text, CMNDNguoiDung = txtCmnd.Text, EmailNguoiDung = txtEmail.Text, SdtNguoiDung = txtSdt.Text, DiaChiNguoiDung = txtDiaChi.Text, AnhNguoiDung = tenFileAnh, TienNguoiDung = tien};
-
-            //if (nguoi.kiemTraCacTextBox())
-            {
-                db.Entry(nguoi).CurrentValues.SetValues(nguoiMoi);
-                db.SaveChanges();
-                MessageBox.Show("Cập nhật thành công");
-            }
+             
+            db.Entry(nguoi).CurrentValues.SetValues(nguoiMoi);
+            db.SaveChanges();
+            MessageBox.Show("Cập nhật thành công"); 
         }
 
         private void btnDoiMatKhau_Click(object sender, RoutedEventArgs e)
         {
+            //Cập nhật tên đăng nhập, mật khẩu
             TaiKhoan taiKhoanMoi = new TaiKhoan() { TenDangNhap = txtTenDangNhap.Text, MatKhau = txtMatKhau.Password, IdNguoiDung = nguoi.IdNguoiDung}; 
-            //if (taiKhoanMoi.kiemTraCacTextBox())
-            {
-                taiKhoan.TenDangNhap = taiKhoanMoi.TenDangNhap;
-                taiKhoan.MatKhau = taiKhoanMoi.MatKhau;
-                db.SaveChanges();
-                MessageBox.Show("Đổi mật khẩu thành công");
-            }
+             
+            taiKhoan.TenDangNhap = taiKhoanMoi.TenDangNhap;
+            taiKhoan.MatKhau = taiKhoanMoi.MatKhau;
+            db.SaveChanges();
+            MessageBox.Show("Đổi mật khẩu thành công"); 
         }
 
         private void btnChonAnh_Click(object sender, RoutedEventArgs e)

@@ -37,6 +37,7 @@ namespace TraoDoiDo
             this.idNguoiMua = idNguoiMua;
             this.idNguoiDang = idNguoiDang;
 
+            // Tìm ảnh người dùng
             string tenFileAnh = (from nd in db.NguoiDung
                                  where nd.IdNguoiDung == idNguoiDang
                                  select nd.AnhNguoiDung).FirstOrDefault();
@@ -46,10 +47,11 @@ namespace TraoDoiDo
 
         private void btnGuiDanhGia_Click(object sender, RoutedEventArgs e)
         {
+            //Xóa đánh giá cũ (nếu có)
             var danhGia = db.DanhGiaNguoiDang.Find(idNguoiDang, idNguoiMua);
             if(danhGia != null)
                 db.DanhGiaNguoiDang.Remove(danhGia);
-
+            //Thêm đánh giá mới
             danhGia = new DanhGiaNguoiDang() { IdNguoiDang = idNguoiDang, IdNguoiMua = idNguoiMua, SoSao = Convert.ToInt32(ratingBarSoSao.Value), NhanXet = txtbDanhGia.Text };
             db.DanhGiaNguoiDang.Add(danhGia);
 

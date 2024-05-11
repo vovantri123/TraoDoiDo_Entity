@@ -60,15 +60,16 @@ namespace TraoDoiDo
             nguonTienTu = chonNguonTien();
             nguonTienDen = "Ví điện tử";
             thoiGianGiaoDich = DateTime.Now.ToString();
+            // Tìm số tiền hiện tại của người dùng
             double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDung
                                                        where nd.IdNguoiDung == ngDung.IdNguoiDung
                                                        select nd.TienNguoiDung).FirstOrDefault());
 
             double soTienSauNap = soTienNguoiDung + soTienNap;
-
+            // Thêm vào bảng giao dịch
             GiaoDich giaoDich = new GiaoDich() { IdNguoiDung = ngDung.IdNguoiDung, LoaiGiaoDich = txtbTieuDe.Text,SoTien = soTienNap.ToString(), TuNguonGiaoDich = nguonTienTu, DenNguonGiaoDich = nguonTienDen, NgayGiaoDich = thoiGianGiaoDich};
             db.GiaoDich.Add(giaoDich);
-
+            // Cập nhật tiền sau nạp
             NguoiDung nguoiDung = db.NguoiDung.Find(ngDung.IdNguoiDung);
             nguoiDung.TienNguoiDung = soTienSauNap.ToString(); 
 
@@ -85,6 +86,7 @@ namespace TraoDoiDo
             nguonTienTu = "Ví điện tử";
             nguonTienDen = chonNguonTien();
             thoiGianGiaoDich = DateTime.Now.ToString();
+            // Tương tự trên, nhưng là rút tiền
             double soTienNguoiDung = Convert.ToDouble((from nd in db.NguoiDung
                                                        where nd.IdNguoiDung == ngDung.IdNguoiDung
                                                        select nd.TienNguoiDung).FirstOrDefault());

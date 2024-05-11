@@ -45,6 +45,7 @@ namespace TraoDoiDo
             this.idNguoiMua = idNguoiMua;
             this.idNguoiDang = idNguoiDang;
 
+            // Tìm sản phẩm theo idSanPham
             sp = db.SanPham.Find(idSanPham);
 
             nguoiDang = (from spham in db.SanPham
@@ -69,6 +70,7 @@ namespace TraoDoiDo
 
         private void tangSoLuotXemThem1()
         {
+            //Tăng số lượt xem lên 1
             int idSanPham = Convert.ToInt32(txtbIdSanPham.Text);
             var soLuotXem = (from sp in db.SanPham
                              where sp.IdSanPham == idSanPham
@@ -100,7 +102,7 @@ namespace TraoDoiDo
         {
             btnThemVaoYeuThich.Visibility = Visibility.Collapsed;
             btnBoYeuThich.Visibility = Visibility.Visible; 
-
+            // Thêm sản phẩm vào Danh mục yêu thích
             DanhMucYeuThich danhMuc = new DanhMucYeuThich() { IdNguoiMua = Convert.ToInt32(idNguoiMua), IdSanPham = Convert.ToInt32(txtbIdSanPham.Text) };
             db.DanhMucYeuThich.Add(danhMuc);
             db.SaveChanges(); 
@@ -110,7 +112,7 @@ namespace TraoDoiDo
         {
             btnBoYeuThich.Visibility = Visibility.Collapsed;
             btnThemVaoYeuThich.Visibility = Visibility.Visible;
-
+            // Xóa sản phẩm khỏi Danh mục yêu thích
             DanhMucYeuThich danhMuc = db.DanhMucYeuThich.Find(Convert.ToInt32(idNguoiMua), Convert.ToInt32(txtbIdSanPham.Text));
             db.DanhMucYeuThich.Remove(danhMuc); 
             db.SaveChanges();

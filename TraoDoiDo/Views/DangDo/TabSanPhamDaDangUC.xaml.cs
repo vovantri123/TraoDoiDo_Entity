@@ -44,7 +44,7 @@ namespace TraoDoiDo.Views.DangDo
             nguoiDung = nguoi;
         }
 
-        private void QuanLySanPham_Load(object sender, RoutedEventArgs e) //Form load của Tab1
+        private void QuanLySanPham_Load(object sender, RoutedEventArgs e) 
         {
             HienThi_QuanLySanPham();
         }
@@ -52,6 +52,7 @@ namespace TraoDoiDo.Views.DangDo
         private void HienThi_QuanLySanPham()
         {
             lsvQuanLySanPham.Items.Clear();
+            // Load danh sách sản phẩm đã đăng
             dsSanPham = (from sp in db.SanPham
                          where sp.IdNguoiDang == nguoiDung.IdNguoiDung
                          select sp).ToList();
@@ -69,7 +70,6 @@ namespace TraoDoiDo.Views.DangDo
 
             f.ucThongTin.txtbIdSanPham.Text = (timIdMaxTrongBangSanPham() + 1).ToString();
 
-            // Load lại lsvQuanLySanPham sau khi (thêm sản phẩm và đóng cái DangDo_Dang)
             f.Closed += (s, ev) =>
             {
                 HienThi_QuanLySanPham();
@@ -84,13 +84,13 @@ namespace TraoDoiDo.Views.DangDo
 
         private void btnSuaDo_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button; // Lấy button được click 
-            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn); // Lấy dòng chứa button 
-            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext; // Lấy dữ liệu của dong
+            Button btn = sender as Button; 
+            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn); 
+            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext; 
 
             if (duLieuCuaDongChuaButton != null)
             {
-                //Load thông tin sản phẩm lên 
+                //Load thông tin sản phẩm lên để sửa
                 SanPham sanPham = db.SanPham.Find(duLieuCuaDongChuaButton.Id);
                 DangDo_Sua f = new DangDo_Sua(sanPham);
                 int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.Id);
@@ -99,12 +99,11 @@ namespace TraoDoiDo.Views.DangDo
                                   where sp.IdSanPham == idsp
                                   select mtasp).ToList();
 
-                //Load ảnh và mô tả lên
                 foreach (var dong in moTaAnhSanPham)
                 {
                     f.DanhSachAnhVaMoTa[f.soLuongAnh] = new ThemAnhKhiDangUC();
 
-                    f.DanhSachAnhVaMoTa[f.soLuongAnh].txtbTenFileAnh.Text = dong.LinkAnhMinhHoa; // Rãnh sửa thuộc tính LinkAnh thành TenFileAnh
+                    f.DanhSachAnhVaMoTa[f.soLuongAnh].txtbTenFileAnh.Text = dong.LinkAnhMinhHoa;
 
                     string duongDanAnh = XuLyAnh.layDuongDanDayDuToiFileAnhSanPham(dong.LinkAnhMinhHoa);
                     f.DanhSachAnhVaMoTa[f.soLuongAnh].txtbDuongDanAnh.Text = duongDanAnh;
@@ -126,9 +125,9 @@ namespace TraoDoiDo.Views.DangDo
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button; // Lấy button được click 
-            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn); // Lấy dòng chứa button 
-            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext; // Lấy dữ liệu của dong
+            Button btn = sender as Button;
+            ListViewItem dongChuaButton = HoTroTimPhanTu.FindAncestor<ListViewItem>(btn); 
+            dynamic duLieuCuaDongChuaButton = dongChuaButton.DataContext; 
 
             if (duLieuCuaDongChuaButton != null)
             {
@@ -138,11 +137,13 @@ namespace TraoDoiDo.Views.DangDo
                     {
                         int idSanPhamMuonXoa = Convert.ToInt32(duLieuCuaDongChuaButton.Id);
 
+                        //Xóa danh sách ảnh của sản phẩm
                         var dsMoTaAnhSanPhamMuonXoa = (from mtasp in db.MoTaAnhSanPham
                                                        where mtasp.IdSanPham == idSanPhamMuonXoa
                                                        select mtasp).ToList();
                         db.MoTaAnhSanPham.RemoveRange(dsMoTaAnhSanPhamMuonXoa);
 
+                        //Xóa sản phẩm
                         var sanPhamMuonXoa = db.SanPham.Find(idSanPhamMuonXoa);
                         db.SanPham.Remove(sanPhamMuonXoa);
 

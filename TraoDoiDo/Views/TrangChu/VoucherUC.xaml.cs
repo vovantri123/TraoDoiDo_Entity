@@ -59,6 +59,7 @@ namespace TraoDoiDo
          
         private void btnNhanVoucher_Click(object sender, RoutedEventArgs e)
         {
+            // Thêm voucher vào bảng NguoiDungVoucher, nếu tồn tại trước đó rồi thì xóa cái cũ đi và thêm 
             NguoiDungVoucher ndvcMoi = new NguoiDungVoucher() { IdVoucher = Convert.ToInt32(txtbIdVoucher.Text), IdNguoiDung = idNguoiMua};
             NguoiDungVoucher ndvc = db.NguoiDungVoucher.Find(Convert.ToInt32(txtbIdVoucher.Text), idNguoiMua);
             if(ndvc != null) 

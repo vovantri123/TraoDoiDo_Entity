@@ -63,7 +63,7 @@ namespace TraoDoiDo
 
         private void btnSua_Click(object sender, RoutedEventArgs e)
         {
-            suaAnhVaMoTaTrongCSDL(); //Phải để cái này ở trên cái dưới
+            suaAnhVaMoTaTrongCSDL(); 
             suaThongTinSanPhamTrongCSDL();
         }
 
@@ -81,7 +81,6 @@ namespace TraoDoiDo
             { 
                 if (DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text != null && !string.IsNullOrEmpty(DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text.Trim()) && DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text != "no_image.jpg")
                 {
-                    //MoTaAnhSanPham moTaAnhSP = new MoTaAnhSanPham(ucThongTin.txtbIdSanPham.Text, (i + 1).ToString(), null, DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text, DanhSachAnhVaMoTa[i].txtbMoTa.Text);
                     var moTaAnhSP = new MoTaAnhSanPham() { IdSanPham = Convert.ToInt32(ucThongTin.txtbIdSanPham.Text), IdAnhMinhHoa = i + 1, LinkAnhMinhHoa = DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text, MoTa = DanhSachAnhVaMoTa[i].txtbMoTa.Text };
                     db.MoTaAnhSanPham.Add(moTaAnhSP);
 
@@ -96,7 +95,6 @@ namespace TraoDoiDo
         
         private void suaThongTinSanPhamTrongCSDL()
         {
-            // Dữ liệu cần chèn
             string tenFileAnh = "no_image.jpg";
             for (int i = 0; i < soLuongAnh; i++)
                 if (DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text != null && !string.IsNullOrEmpty(DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text.Trim()) && DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text != "no_image.jpg")
@@ -104,10 +102,8 @@ namespace TraoDoiDo
                     tenFileAnh = DanhSachAnhVaMoTa[i].txtbTenFileAnh.Text;
                     break;
                 } 
-
-            //SanPham sanPhamMoi = new SanPham(ucThongTin.txtbIdSanPham.Text, sanPham.IdNguoiDang, ucThongTin.txtbTen.Text, tenFileAnh, ucThongTin.txtbLoai.Text, ucThongTin.ucTangGiamSoLuongTong.txtbSoLuong.Text, ucThongTin.ucTangGiamSoLuongDaBan.txtbSoLuong.Text, ucThongTin.txtbGiaGoc.Text,
-            //    ucThongTin.txtbGiaBan.Text, ucThongTin.txtbPhiShip.Text, "Đã duyệt", ucThongTin.cboNoiBan.Text, ucThongTin.cboXuatXu.Text, ucThongTin.dtpNgayMua.SelectedDate.Value.ToString("dd/MM/yyyy"), ucThongTin.txtbMoTaChung.Text, ucThongTin.progressSlidere_PhanTramMoi.Value.ToString(), luotXem, null, null);
-
+            
+            // Sửa sản phẩm trong CSDL
             SanPham sanPhamMoi = db.SanPham.Find(sanPham.IdSanPham);
             sanPhamMoi.IdSanPham = Convert.ToInt32(ucThongTin.txtbIdSanPham.Text);
             sanPhamMoi.Ten = ucThongTin.txtbTen.Text;

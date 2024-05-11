@@ -54,44 +54,47 @@ namespace TraoDoiDo
             capNhatThongTinCaNhan();
             foreach (var dong in dsSanPhamDeThanhToan)
             {
+                // Tìm thông tin người đăng
                 var nguoiDang = (from sp in db.SanPham
                                  join nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
                                  where sp.IdSanPham == dong.IdSanPham
                                  select nd).FirstOrDefault();
 
-
+                //Thêm đơn hàng vào tab quản lý đơn hàng (phía người bán)
                 var quanLyDonHang = (from qldh in db.QuanLyDonHang
                                      where qldh.IdNguoiDang == nguoiDang.IdNguoiDung && qldh.IdNguoiMua == ngDung.IdNguoiDung && qldh.IdSanPham == dong.IdSanPham && qldh.TrangThai == "Chờ đóng gói"
                                      select qldh).FirstOrDefault();
                 if (quanLyDonHang != null)
-                    db.QuanLyDonHang.Remove(quanLyDonHang); //Xóa trước khi thêm, do ràng buộc unique //quanLyDonHang nay bên phía Người Bán
+                    db.QuanLyDonHang.Remove(quanLyDonHang);
                 quanLyDonHang = new QuanLyDonHang() { IdNguoiDang = nguoiDang.IdNguoiDung, IdNguoiMua = ngDung.IdNguoiDung, IdSanPham = dong.IdSanPham, TrangThai = "Chờ đóng gói" };
                 db.QuanLyDonHang.Add(quanLyDonHang);
 
-
+                //Thêm đơn hàng vào tab trạng thái đơn hàng (phía người mua)
                 var trangThaiDonHang = db.TrangThaiDonHang.Find(dong.IdNguoiMua, dong.IdSanPham);
                 if (trangThaiDonHang != null)
-                    db.TrangThaiDonHang.Remove(trangThaiDonHang); //Trạng thái don hàng bên phía Người Mua 
+                    db.TrangThaiDonHang.Remove(trangThaiDonHang); 
                 trangThaiDonHang = new TrangThaiDonHang() { IdNguoiMua = dong.IdNguoiMua, IdSanPham = dong.IdSanPham, SoLuongMua = dong.SoLuongMua, TongThanhToan = dong.TongThanhToan, Ngay = dong.Ngay, TrangThai = dong.TrangThai };
                 db.TrangThaiDonHang.Add(trangThaiDonHang);
 
+                //Xóa sản phẩm khỏi giỏ hàng
                 var giohang = db.GioHang.Find(dong.IdNguoiMua, dong.IdSanPham);
                 db.GioHang.Remove(giohang);
+                db.SaveChanges();
             }
 
             if (idVoucher != -1)
             {
                 int idvc = Convert.ToInt32(idVoucher);
+                // Xóa voucher đã dùng
                 NguoiDungVoucher nguoiDungVoucher = db.NguoiDungVoucher.Find(ngDung.IdNguoiDung, idvc);
                 db.NguoiDungVoucher.Remove(nguoiDungVoucher);
 
+                //Tăng số lượt sử dụng của voucher
                 var soLuotDaSuDung = (from vc in db.Voucher
                                       where vc.IdVoucher == idvc
                                       select vc.SoLuotDaSuDung).FirstOrDefault();
-                NguoiDungVoucher nguoidungVoucher = db.NguoiDungVoucher.Find(ngDung.IdNguoiDung, nguoiDungVoucher.IdVoucher);
-                db.NguoiDungVoucher.Remove(nguoidungVoucher);
 
-                Voucher voucher = db.Voucher.Find(nguoidungVoucher.IdVoucher);
+                Voucher voucher = db.Voucher.Find(nguoiDungVoucher.IdVoucher);
                 voucher.SoLuotDaSuDung = (Convert.ToInt32(soLuotDaSuDung) + 1).ToString();
 
             }
@@ -112,6 +115,7 @@ namespace TraoDoiDo
         }
         private void capNhatThongTinCaNhan() 
         {
+            //Cập nhật thông tin người mua
             var nguoi = db.NguoiDung.Find(ngDung.IdNguoiDung);
             nguoi.HoTenNguoiDung = txtHoTen.Text;
             nguoi.SdtNguoiDung = txtSoDienThoai.Text;

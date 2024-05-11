@@ -47,6 +47,7 @@ namespace TraoDoiDo.Views.QuanLy
             List<int> dsCotSoLuongDaBan = Enumerable.Repeat(0, 12).ToList();
             List<int> dsCotSoLuongKH = Enumerable.Repeat(0, 12).ToList();
             int id = Convert.ToInt32(idNguoi);
+            // Load danh sách doanh thu sản phẩm
             var dsDoanhThuSanPham =  (from t in db.TrangThaiDonHang
                                       join sp in db.SanPham
                                       on t.IdSanPham equals sp.IdSanPham
@@ -72,6 +73,7 @@ namespace TraoDoiDo.Views.QuanLy
             for (int i = 1; i <= 12; i++)
             {
                 string thang = i.ToString();
+                //đếm số lượng khách hàng mua sản phẩm từ một người đăng (người bán) cụ thể trong một tháng và năm cụ thể khi đơn hàng có trạng thái là "Đã nhận"
                 var soLuongKH = (from tt in db.TrangThaiDonHang
                                  join sp in db.SanPham
                                  on tt.IdSanPham equals sp.IdSanPham
@@ -143,13 +145,12 @@ namespace TraoDoiDo.Views.QuanLy
             }
             SeriesCollection TiLePhanTramDoanhThuTheoSanPham_SC = new SeriesCollection();
 
-            // Tạo các Slice (phần chia) cho PieChart từ dữ liệu
             for (int i = 0; i < dsNhan.Count; i++)
             {
                 TiLePhanTramDoanhThuTheoSanPham_SC.Add(new PieSeries
                 {
-                    Title = dsNhan[i], // Tên sản phẩm
-                    Values = new ChartValues<int> { dsCot[i] } // Doanh thu tương ứng với sản phẩm
+                    Title = dsNhan[i],  
+                    Values = new ChartValues<int> { dsCot[i] } 
 
                 });
             }
@@ -175,7 +176,6 @@ namespace TraoDoiDo.Views.QuanLy
                     };
 
 
-            // Đặt dữ liệu vào Chart
             doThi.Series = DoanhThuTheoSanPham_SC;
 
             var xAxis = new LiveCharts.Wpf.Axis
@@ -191,7 +191,7 @@ namespace TraoDoiDo.Views.QuanLy
             {
                 Title = $"{Y}",
                 FontSize = 9.5,
-                LabelFormatter = value => value.ToString("#,##0") // Định dạng label
+                LabelFormatter = value => value.ToString("#,##0")  
             };
             doThi.AxisY.Add(yAxis);
 

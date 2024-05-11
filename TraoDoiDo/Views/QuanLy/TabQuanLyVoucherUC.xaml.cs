@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,16 +44,15 @@ namespace TraoDoiDo.Views.QuanLy
 
         private void LoadDanhSachVoucer()
         {
+            // Load danh sách voucher
             List<Voucher> dsVoucher = (from vc in db.Voucher
                                        select vc).ToList();
             lsvQLVoucher.ItemsSource = dsVoucher;
         }
         private void lsvQLVoucher_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Kiểm tra xem có dòng nào được chọn không
             if (lsvQLVoucher.SelectedItem != null)
             {
-                // Lấy dữ liệu của dòng được chọn
                 Voucher dongDuocChon = lsvQLVoucher.SelectedItem as Voucher;
 
                 if (dongDuocChon != null)
@@ -60,8 +60,8 @@ namespace TraoDoiDo.Views.QuanLy
                     txtbIdVoucher.Text = dongDuocChon.IdVoucher.ToString();
                     txtbTenVoucher.Text = dongDuocChon.TenVoucher;
                     txtbGiaTri.Text = dongDuocChon.GiaTri;
-                    dtpNgayBatDau.SelectedDate = DateTime.Parse(dongDuocChon.NgayBatDau);
-                    dtpNgayKetThuc.SelectedDate = DateTime.Parse(dongDuocChon.NgayKetThuc);
+                    dtpNgayBatDau.SelectedDate = DateTime.ParseExact(dongDuocChon.NgayBatDau, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    dtpNgayKetThuc.SelectedDate = DateTime.ParseExact(dongDuocChon.NgayKetThuc, "d/M/yyyy", CultureInfo.InvariantCulture);
                     ucTangGiamSoLuotSuDungToiDa.txtbSoLuong.Text = dongDuocChon.SoLuotSuDungToiDa;
                     ucTangGiamSoLuotDaSuDung.txtbSoLuong.Text = dongDuocChon.SoLuotDaSuDung;
                 }
@@ -71,6 +71,7 @@ namespace TraoDoiDo.Views.QuanLy
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn đăng ?", "Xác nhận đăng", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                // Thêm voucher 
                 Voucher voucher = new Voucher()
                 {
                     IdVoucher = 1,
@@ -81,14 +82,11 @@ namespace TraoDoiDo.Views.QuanLy
                     NgayBatDau = dtpNgayBatDau.Text,
                     NgayKetThuc = dtpNgayKetThuc.Text
                 };
+                 
+                db.Voucher.Add(voucher);
+                db.SaveChanges();
 
-                //if (voucher.kiemTraCacTextBox())
-                { 
-                    db.Voucher.Add(voucher);
-                    db.SaveChanges();
-
-                    FQuanLyVoucher_Loaded(sender, e);
-                }
+                FQuanLyVoucher_Loaded(sender, e); 
 
             }
         }
@@ -96,6 +94,7 @@ namespace TraoDoiDo.Views.QuanLy
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn sửa mục đã chọn?", "Xác nhận sửa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                // Sửa voucher
                 Voucher voucher = db.Voucher.Find(Convert.ToInt32(txtbIdVoucher.Text));
                 Voucher voucherMoi = new Voucher()
                 {
@@ -107,19 +106,17 @@ namespace TraoDoiDo.Views.QuanLy
                     NgayKetThuc = dtpNgayKetThuc.Text
                 };
 
-                //if (voucherMoi.kiemTraCacTextBox())
-                {
-                    voucher.TenVoucher = voucherMoi.TenVoucher;
-                    voucher.GiaTri = voucherMoi.GiaTri;
-                    voucher.SoLuotSuDungToiDa = voucherMoi.SoLuotSuDungToiDa;
-                    voucher.SoLuotDaSuDung = voucherMoi.SoLuotDaSuDung;
-                    voucher.NgayBatDau = voucherMoi.NgayBatDau;
-                    voucher.NgayKetThuc = voucherMoi.NgayKetThuc;
+                 
+                voucher.TenVoucher = voucherMoi.TenVoucher;
+                voucher.GiaTri = voucherMoi.GiaTri;
+                voucher.SoLuotSuDungToiDa = voucherMoi.SoLuotSuDungToiDa;
+                voucher.SoLuotDaSuDung = voucherMoi.SoLuotDaSuDung;
+                voucher.NgayBatDau = voucherMoi.NgayBatDau;
+                voucher.NgayKetThuc = voucherMoi.NgayKetThuc;
                       
-                    db.SaveChanges(); 
+                db.SaveChanges(); 
 
-                    FQuanLyVoucher_Loaded(sender, e);
-                }
+                FQuanLyVoucher_Loaded(sender, e); 
             }
         }
 
@@ -134,7 +131,7 @@ namespace TraoDoiDo.Views.QuanLy
                 if (MessageBox.Show("Bạn có chắc chắn muốn xóa mục đã chọn?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     int idVoucher = duLieuCuaDongChuaButton.IdVoucher;
-
+                    // Xóa voucher
                     List<NguoiDungVoucher> NguoiDungVoucherMuonXoa = (from ndvc in db.NguoiDungVoucher
                                                                       where ndvc.IdVoucher == idVoucher
                                                                       select ndvc).ToList();

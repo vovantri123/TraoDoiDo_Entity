@@ -50,6 +50,7 @@ namespace TraoDoiDo.Views.MuaDo
         }
         private void LoadLsvTrongTabTrangThaiDonHang(string tenLsv, string trangthai)
         {
+            // Load danh sách đơn hàng trong tab TrangThaiDonHang
             var dsTrangThaiDon = (from ttdh in db.TrangThaiDonHang
                                   join nd in db.NguoiDung on ttdh.IdNguoiMua equals nd.IdNguoiDung
                                   join sp in db.SanPham on ttdh.IdSanPham equals sp.IdSanPham
@@ -97,6 +98,7 @@ namespace TraoDoiDo.Views.MuaDo
                     db.TrangThaiDonHang.Remove(trangThai);
 
                     int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
+                    //Xóa đơn hàng 
                     var donHang = (from qldh in db.QuanLyDonHang 
                                     where qldh.IdNguoiMua == ngMua.IdNguoiDung && qldh.IdSanPham == idsp
                                     select qldh).FirstOrDefault();
@@ -119,6 +121,7 @@ namespace TraoDoiDo.Views.MuaDo
             {
                 if (MessageBox.Show("Bạn có chắc là đã nhận được hàng 0_o", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 { 
+                    // Cập nhật trạng thái đã nhận hàng
                     TrangThaiDonHang trangThai = db.TrangThaiDonHang.Find(ngMua.IdNguoiDung, duLieuCuaDongChuaButton.IdSP);
                     trangThai.TrangThai = "Đã nhận";
 
@@ -144,6 +147,7 @@ namespace TraoDoiDo.Views.MuaDo
             if (duLieuCuaDongChuaButton != null)
             { 
                 int idsp = Convert.ToInt32(duLieuCuaDongChuaButton.IdSP);
+                //Tìm thông tin người đăng sản phẩm
                 var nguoiDang = (from sp in db.SanPham
                                     join  nd in db.NguoiDung on sp.IdNguoiDang equals nd.IdNguoiDung
                                     where sp.IdSanPham == idsp

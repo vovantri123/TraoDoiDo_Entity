@@ -39,6 +39,7 @@ namespace TraoDoiDo.Views.QuanLy
             try
             {
                 lsvQuanLyNguoiDung.Items.Clear();
+                // Load danh sách sản phẩm
                 dsNguoiDung = (from p in db.NguoiDung select p).ToList();
                 foreach (var nguoiDung in dsNguoiDung)
                 {
@@ -80,7 +81,7 @@ namespace TraoDoiDo.Views.QuanLy
                 int id = Convert.ToInt32(dataItem.UserId);
                 if (dataItem != null)
                 {
-
+                    // Load thông tin người dùng
                     NguoiDung ngDung = (from p in db.NguoiDung where p.IdNguoiDung == id select p).SingleOrDefault();
                     QuanLyDoanhThuNguoiDung f = new QuanLyDoanhThuNguoiDung(ngDung);
                     f.Show();
@@ -102,12 +103,13 @@ namespace TraoDoiDo.Views.QuanLy
                     {
                         try
                         {
-                            
+                            // Xóa người dùng và tài khoản người dùng
                             NguoiDung ngDung = (from nguoi in db.NguoiDung where nguoi.IdNguoiDung == idNguoiDung  select nguoi).SingleOrDefault();
-                            db.NguoiDung.Remove(ngDung);
-                            db.SaveChanges();
+                            db.NguoiDung.Remove(ngDung); 
+
                             TaiKhoan taikhoan = (from tk in db.TaiKhoan where tk.IdNguoiDung == idNguoiDung select tk).SingleOrDefault();
                             db.TaiKhoan.Remove(taikhoan);
+
                             db.SaveChanges();
                         }
                         catch (Exception ex)
@@ -123,6 +125,8 @@ namespace TraoDoiDo.Views.QuanLy
         {
             int saoDau = Convert.ToInt32(soSaoDau);
             int saoCuoi = Convert.ToInt32(soSaoCuoi);
+
+            // lấy danh sách người đăng có số sao đánh giá trong khoảng cho trước
             var dsDanhGiaSoSao = from danhGia in db.DanhGiaNguoiDang
                                                     group danhGia by danhGia.IdNguoiDang into g
                                                     let avgSoSao = g.Average(dg => dg.SoSao)
@@ -135,6 +139,7 @@ namespace TraoDoiDo.Views.QuanLy
             foreach (var danhGia in dsDanhGiaSoSao)
             {
                 int idNguoiDang = danhGia.IdNguoiDang;
+                // lấy thông tin chi tiết của người đăng
                 var nguoiDung = (from d in db.DanhGiaNguoiDang
                                        join ng in db.NguoiDung
                                        on d.IdNguoiDang equals ng.IdNguoiDung
@@ -185,6 +190,7 @@ namespace TraoDoiDo.Views.QuanLy
                 else
                 {
                     string idNguoiDung = txbTimKiemNguoiDung.Text.Trim();
+                    // tìm người đăng theo id người
                     var nguoiDung = (from nd in db.NguoiDung
                                            join tk in db.TaiKhoan
                                            on nd.IdNguoiDung equals tk.IdNguoiDung

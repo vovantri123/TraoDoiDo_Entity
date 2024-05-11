@@ -37,12 +37,8 @@ namespace TraoDoiDo
             {
                 string selectedFileName = openFileDialog.FileName;
                 imgAnhSP.Source = new BitmapImage(new Uri(selectedFileName)); 
-                txtbTenFileAnh.Text = System.IO.Path.GetFileName(selectedFileName); // Lưu tên file
+                txtbTenFileAnh.Text = System.IO.Path.GetFileName(selectedFileName); 
                 txtbDuongDanAnh.Text = selectedFileName;
-
-                // Gọi hàm để lưu ảnh vào thư mục "HinhCuaToi"
-                //LuuAnhVaoThuMuc(selectedFileName);
-               
             }
         }
 

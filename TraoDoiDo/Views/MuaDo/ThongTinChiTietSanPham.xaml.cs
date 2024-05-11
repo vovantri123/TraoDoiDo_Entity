@@ -76,6 +76,7 @@ namespace TraoDoiDo
 
         private void LoadAnhVaMoTa(object sender, RoutedEventArgs e)
         {
+            // Load danh sách ảnh và mô tả của ảnh
             var dsMoTaAnh = (from spham in db.SanPham
                              join mtasp in db.MoTaAnhSanPham on spham.IdSanPham equals mtasp.IdSanPham
                              where spham.IdSanPham == sp.IdSanPham
@@ -100,6 +101,7 @@ namespace TraoDoiDo
 
         private void LoadSanPhamlenWpnlHienThiSPCungLoai(object sender, RoutedEventArgs e)
         { 
+            // Load danh sách sản phẩm cùng loại
             var dsSanPhamCungLoai = (from spham in db.SanPham
                                      where spham.Loai == sp.Loai && spham.IdSanPham != sp.IdSanPham && spham.IdNguoiDang != idNguoiMua
                                      select spham).ToList();
@@ -138,6 +140,7 @@ namespace TraoDoiDo
          
         private void LoadThongTinNguoiDang(object sender, RoutedEventArgs e)
         {
+            //Load ảnh và thông tin người đăng
             var linkAnh = (from nd in db.NguoiDung
                            where nd.IdNguoiDung == idNguoiDang
                            select nd.AnhNguoiDung).FirstOrDefault();
@@ -208,10 +211,12 @@ namespace TraoDoiDo
 
         private void btnThemVaoGioHang_Click(object sender, RoutedEventArgs e)
         {
+            // Xóa sản phẩm cũ khỏi giỏ hàng
             GioHang gioHang = db.GioHang.Find(idNguoiMua, idSanPham);
             if (gioHang != null)
                 db.GioHang.Remove(gioHang);
 
+            //Thêm sản phẩm mới vào giỏ hàng
             gioHang = new GioHang() { IdNguoiMua =idNguoiMua, IdSanPham=idSanPham, SoLuongMua = txtbSoLuongHienTai.Text };
             db.GioHang.Add(gioHang);
 

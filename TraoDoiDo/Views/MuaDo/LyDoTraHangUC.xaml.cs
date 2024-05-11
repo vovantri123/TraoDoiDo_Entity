@@ -36,6 +36,7 @@ namespace TraoDoiDo
 
         private void btnXacNhanTraHang_Click(object sender, RoutedEventArgs e)
         {
+            // Cập nhật trạng thái đơn hàng từ đang giao sang trả hàng
             var trangThai = db.TrangThaiDonHang.Find(idNguoiMua, idSP);
             trangThai.TrangThai = "Đã trả hàng";
 
@@ -70,8 +71,7 @@ namespace TraoDoiDo
         }
 
         private string timLyDoDuocChon()
-        {
-            // Duyệt qua từng Border trong Grid
+        { 
             foreach (var border in GridLyDo.Children)
             {
                 if (border is Border)

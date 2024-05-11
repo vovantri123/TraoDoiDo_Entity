@@ -44,6 +44,7 @@ namespace TraoDoiDo.Views.QuanLy
             try
             {
                 lsvQuanLySanPham.Items.Clear();
+                // Load danh sách sản phẩm
                 dsSanPham = (from sp in db.SanPham select sp).ToList();
                 foreach (var sanPham in dsSanPham)
                 {
@@ -65,6 +66,7 @@ namespace TraoDoiDo.Views.QuanLy
         private void HienThiNgayMuaLau(bool kt)
         {
             lsvQuanLySanPham.Items.Clear();
+            // Load danh sách sản phẩm
             List<SanPham> dsSanPham = (from sp in db.SanPham select sp).ToList();
             foreach (var sp in dsSanPham)
             {
@@ -101,6 +103,7 @@ namespace TraoDoiDo.Views.QuanLy
                     HienThi_QuanLySanPham();
                 else
                 {
+                    // Load danh sách sản phẩm theo loại 
                     dsSanPham = (from sp in db.SanPham where sp.Loai == selectedItemContent select sp).ToList();
                     foreach (var sanPham in dsSanPham)
                     {
@@ -125,6 +128,7 @@ namespace TraoDoiDo.Views.QuanLy
                 else
                 {
                     string tenSp = txbTimKiemSanPham.Text.Trim();
+                    // Load danh sách sản phẩm theo tên
                     List<SanPham> sanPham = (from sp in db.SanPham where sp.Ten.Contains(tenSp) select sp).ToList();
                     foreach(var sp in sanPham)
                     {
@@ -134,9 +138,7 @@ namespace TraoDoiDo.Views.QuanLy
                             lsvQuanLySanPham.Items.Add(new { Id = sp.IdSanPham.ToString(), Ten = sp.Ten.ToString(), LinkAnh = tenAnh, Loai = sp.Loai.ToString(), SoLuong = sp.SoLuong.ToString(), SoLuongDaBan = sp.SoLuongDaBan.ToString(), GiaGoc = sp.GiaGoc.ToString(), GiaBan = sp.GiaBan.ToString(), PhiShip = sp.PhiShip.ToString() });
                         }
                     }
-                    
-
-
+                     
                 }
 
             }

@@ -63,6 +63,8 @@ namespace TraoDoiDo.Views.DangDo
             int soLuong3Sao = 0;
             int soLuong4Sao = 0;
             int soLuong5Sao = 0;
+
+            //Load danh sách số lượt đánh giá theo từng số sao
             var dsSoLuotDanhGiaTheoTungSoSao = (from dgnd in db.DanhGiaNguoiDang
                                                 where dgnd.IdNguoiDang == nguoiDang.IdNguoiDung
                                                 group dgnd by dgnd.SoSao into g
@@ -116,6 +118,8 @@ namespace TraoDoiDo.Views.DangDo
             List<string> dsNhan = new List<string>();
             List<int> dsCotSoLuongDaBan = new List<int>();
             List<int> dsCotSoLuongTong = new List<int>();
+
+            //Load danh sách sản phẩm
             List<SanPham> dsSLDaBan = (from sp in db.SanPham
                                        where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                        select sp).ToList();
@@ -131,15 +135,13 @@ namespace TraoDoiDo.Views.DangDo
                 dsCotSoLuongTong.Add(soLuongTong);
             }
 
-            // Tạo 2 cột cạnh nhau
             SeriesCollection DoanhThuTheoSanPham_SC = new SeriesCollection
                 {
                      new ColumnSeries
                      {
                          Title = "Số lượng đã bán",
-                         Values = new ChartValues<int>(dsCotSoLuongDaBan),
-
-                         Fill = Brushes.LightSkyBlue, // Màu của cột số lượng đã bán
+                         Values = new ChartValues<int>(dsCotSoLuongDaBan), 
+                         Fill = Brushes.LightSkyBlue, 
                          ScalesYAt = 0
 
                      },
@@ -147,12 +149,11 @@ namespace TraoDoiDo.Views.DangDo
                      {
                          Title = "Số lượng tổng",
                          Values = new ChartValues<int>(dsCotSoLuongTong),
-                         Fill = Brushes.Teal, // Màu của cột số lượng tổng
+                         Fill = Brushes.Teal, 
                          ScalesYAt = 0
                      }
                 };
-
-            // Đặt dữ liệu vào Chart
+             
             chart_SoLuongSanPhamDaBan.Series = DoanhThuTheoSanPham_SC;
 
             var xAxis = new LiveCharts.Wpf.Axis
@@ -169,7 +170,7 @@ namespace TraoDoiDo.Views.DangDo
             {
                 Title = "Số lượng",
                 FontSize = 9.5,
-                LabelFormatter = value => value.ToString("#,##0") // Định dạng label cho trục Y thứ nhất
+                LabelFormatter = value => value.ToString("#,##0")  
             };
             chart_SoLuongSanPhamDaBan.AxisY.Add(yAxis);
         }
@@ -178,6 +179,8 @@ namespace TraoDoiDo.Views.DangDo
         {
             List<string> dsNhan = new List<string>();
             List<int> dsCotDoanhThu = new List<int>();
+
+            // Load danh sách sản phẩm
             List<SanPham> dsTiLeDoanhThu = (from sp in db.SanPham
                                             where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                             select sp).ToList();
@@ -192,16 +195,14 @@ namespace TraoDoiDo.Views.DangDo
                 dsCotDoanhThu.Add(doanhThu);
             }
 
-            // Tạo SeriesCollection cho biểu đồ PieChart
             SeriesCollection TiLePhanTramDoanhThuTheoSanPham_SC = new SeriesCollection();
 
-            // Tạo các Slice (phần chia) cho PieChart từ dữ liệu
             for (int i = 0; i < dsNhan.Count; i++)
             {
                 TiLePhanTramDoanhThuTheoSanPham_SC.Add(new PieSeries
                 {
-                    Title = dsNhan[i], // Tên sản phẩm
-                    Values = new ChartValues<int> { dsCotDoanhThu[i] } // Doanh thu tương ứng với sản phẩm
+                    Title = dsNhan[i],  
+                    Values = new ChartValues<int> { dsCotDoanhThu[i] } 
 
                 });
             }
@@ -213,6 +214,7 @@ namespace TraoDoiDo.Views.DangDo
         {
             List<string> dsNhan = new List<string>();
             List<int> dsCotDoanhThu = new List<int>();
+            //Load danh sách sản phẩm
             List<SanPham> dsDoanhThuSanPham = (from sp in db.SanPham
                                                where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                                select sp).ToList();
@@ -259,6 +261,7 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongDoanhThu()
         {
             int tongDoanhThu = 0;
+            //Load danh sách sản phẩm
             List<SanPham> dsTongDoanhThu = (from sp in db.SanPham
                                             where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                             select sp).ToList();
@@ -273,6 +276,7 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongSoLuongSanPhamDaBan()
         {
             int tongSLSanPhamDaBan = 0;
+            //Load danh sách sản phẩm
             List<SanPham> dsTongSLDaBan = (from sp in db.SanPham
                                            where sp.IdNguoiDang == nguoiDang.IdNguoiDung
                                            select sp).ToList();
@@ -286,6 +290,7 @@ namespace TraoDoiDo.Views.DangDo
         private void LoadTongKhachHang()
         {
             txtbTongSoLuongKhachHang.Text = "0";
+            // Load tổng số lượng khách hàng của từng người bán
             var truyVan = (from ttdh in db.TrangThaiDonHang
                                       join sp in db.SanPham on ttdh.IdSanPham equals sp.IdSanPham
                                       group sp by sp.IdNguoiDang into g

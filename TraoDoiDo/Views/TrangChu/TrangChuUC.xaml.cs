@@ -65,7 +65,7 @@ namespace TraoDoiDo
         private void LoadVoucherlenWpnlDanhSachVoucher()
         {
             wpnlDSVoucher.Children.Clear();
-
+            //Load danh sách voucher
             var dsVoucher = (from vc in db.Voucher select vc).ToList();
 
             foreach (var dong in dsVoucher)
@@ -89,7 +89,7 @@ namespace TraoDoiDo
         {
             int demSoNguoiMuonLoc = 0;
             wpnlDSNguoiHayMua.Children.Clear();
-
+            // Load danh sách người hay mua
             var dsNguoiHayMua = (from tt in db.TrangThaiDonHang
                                  join nd in db.NguoiDung on tt.IdNguoiMua equals nd.IdNguoiDung
                                  where tt.TrangThai == "Đã nhận"
