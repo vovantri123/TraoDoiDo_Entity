@@ -23,7 +23,7 @@ namespace TraoDoiDo
     {
 
         public int idNguoiDang;
-        public int idNguoiMua; 
+        public int idNguoiMua;
 
         TraoDoiDoEntities db = new TraoDoiDoEntities();
 
